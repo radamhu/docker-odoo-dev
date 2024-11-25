@@ -1,18 +1,24 @@
-FROM odoo:17
+FROM odoo:18
 
+# Switch to root for installing system dependencies
 USER root
 
-RUN apt-get update && apt-get install -y \
+# Install dependencies
+RUN apt update && \ 
+    apt install -y --no-install-recommends \
     python3-dev \
     build-essential \
     libffi-dev \
     libssl-dev \
     cargo \
-    zip
+    zip \
+    wget \
+    python3-debugpy \
+    python3-pydevd \
+ && rm -rf /var/lib/apt/lists/*  # Clean up APT cache to reduce image size
 
-RUN pip3 install --upgrade pip
-COPY ./requirements.txt /requirements.txt
-RUN pip3 install -r /requirements.txt
-RUN rm /requirements.txt
-
+# Optional: Modify Odoo source files (uncomment if needed)
 # COPY ./misc.py /usr/lib/python3/dist-packages/odoo/tools/misc.py
+
+# Switch back to the odoo user
+USER odoo
