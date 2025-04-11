@@ -3,47 +3,57 @@
 #### Overview
 This project template facilitates Odoo development using Docker, specifically configured for VSCode IDE. It includes setup instructions and tips for effective debugging using the Odoo IDE extension.
 
-#### Prerequisites
-Before proceeding, ensure you have the following installed:
-1. Docker
-2. Git
-3. VSCode with the following extensions:
-   - Docker
+#### VSCode with the following extensions:
    - Odoo IDE
-   - Python Debugger
+   - Owl Vision
+   - Odoo Shortcuts
 
 #### Setup Steps
 
-1. **Clone the Project**
+**Clone the Project**
+```bash
+git clone https://github.com/teguhteja/docker-odoo-dev.git -b 18
+```
+
+**Odoo Framework Integration for Visual Studio Code**
+```bash
+https://github.com/odoo-ide/vscode-odoo
+
+```
+
+**Python static analysis tool : Odoo Stubs**
+```bash
+git clone -b 18.0 https://github.com/odoo-ide/odoo-stubs.git odoo-stubs18
+```
+pyrightconfig.json
+```bash
+{
+    "stubPath": "./odoo-stubs18/",
+    "extraPaths": [
+        "./custom-addons/",
+    ]
+}
+```
+
+**Build Docker Image w/ pydevd-odoo debugger**
    ```bash
-   git clone https://github.com/teguhteja/docker-odoo-dev.git -b 18
+   https://github.com/odoo-ide/pydevd-odoo
+   requirements.txt pydevd-odoo
+   docker build -t odoodev:15 .
    ```
 
-2. **Get Odoo Stubs**
-   Run the script to fetch the `odoo-stub` folder:
-   ```bash
-   chmod +x git-clone-odoo-stubs.sh
-   ./git-clone-odoo-stubs.sh
-   ```
-
-3. **Build Docker Image**
-   Build the Odoo development image:
-   ```bash
-   docker build -t odoodev:18 .
-   ```
-
-4. **Start Docker Compose**
-   Launch Odoo 18 and PostgreSQL 16 containers:
+**Start Docker Compose**
    ```bash
    docker compose up -d
    ```
 
-5. **Add Your Addons**
-   Place your addons in the `custom-addons` folder and restart the Docker stack (`docker compose restart odoo-dev`) using docker extension vscode.
+**Add Your Addons**
+   `custom-addons`
+   `docker compose restart odoo-dev`
 
-6. **Debugging**
+**Debugging**
    - Set breakpoints in your source code within VSCode.
-   - Ensure the debugger is configured to debug external code (`"justMyCode": false` in launch.json).
+   - Ensure the debugger is configured to debug external code (`"justMyCode": false` in .vscode/launch.json).
    - Access the Odoo source code from the container:
      ```bash
      ./docker-cp-odoo.sh
@@ -53,10 +63,10 @@ Before proceeding, ensure you have the following installed:
 
 #### Troubleshooting Tips
 
-1. **Copying misc.py in odoodev**
+**Copying misc.py in odoodev**
    If backup failures occur with Docker images, modify `misc.py` to resolve issues.
 
-2. **Debugging Odoo Source Code**
+**Debugging Odoo Source Code**
    Modify `"justMyCode": false` in `launch.json`, 
    download the Odoo folder from the container using `docker-cp-odoo.sh`,
    uncomment this line in docker-compose.yml
