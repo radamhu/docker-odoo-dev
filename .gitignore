@@ -1,7 +1,17 @@
-# my ignore
+# Odoo ignores
 odoo-*
 odoo-stubs-*
-custom_addons/*
+# custom_addons/*
+odoo16
+custom-addons/
+docker-compose.0.yml
+odoo/
+conf/odoo.1.conf
+odoo.zip
+blog-problem-database-backup
+blog-odoo-*.md
+blog-odoo-stub.md
+blog-folder-mnt-var-odoo.md
 
 ### macOS ###
 # General
@@ -59,22 +69,3 @@ $RECYCLE.BIN/
 *.py[co]
 __pycache__/
 
-
-odoo16
-custom-addons/
-
-blog-odoo-stub.md
-
-docker-compose.0.yml
-
-blog-folder-mnt-var-odoo.md
-
-odoo/
-
-conf/odoo.1.conf
-
-odoo.zip
-
-blog-problem-database-backup
-
-blog-odoo-15.md

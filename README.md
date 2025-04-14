@@ -23,6 +23,7 @@ https://github.com/odoo-ide/vscode-odoo
 
 **Python static analysis tool : Odoo Stubs**
 ```bash
+# odoo-stubs18 .gitignore
 git clone -b 18.0 https://github.com/odoo-ide/odoo-stubs.git odoo-stubs18
 ```
 pyrightconfig.json
