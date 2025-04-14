@@ -12,7 +12,7 @@ This project template facilitates Odoo development using Docker, specifically co
 
 **Clone the Project**
 ```bash
-git clone https://github.com/teguhteja/docker-odoo-dev.git -b 18
+git clone https://github.com/radamhu/docker-odoo-dev.git -b 16
 ```
 
 **Odoo Framework Integration for Visual Studio Code**
@@ -24,12 +24,12 @@ https://github.com/odoo-ide/vscode-odoo
 **Python static analysis tool : Odoo Stubs**
 ```bash
 # odoo-stubs18 .gitignore
-git clone -b 18.0 https://github.com/odoo-ide/odoo-stubs.git odoo-stubs18
+git clone -b 16.0 https://github.com/odoo-ide/odoo-stubs.git odoo-stubs16
 ```
 pyrightconfig.json
 ```bash
 {
-    "stubPath": "./odoo-stubs18/",
+    "stubPath": "./odoo-stubs16/",
     "extraPaths": [
         "./custom-addons/",
     ]
@@ -40,7 +40,7 @@ pyrightconfig.json
    ```bash
    https://github.com/odoo-ide/pydevd-odoo
    requirements.txt pydevd-odoo
-   docker build -t odoodev:15 .
+   docker build -t odoodev:16 .
    ```
 
 **Start Docker Compose**
@@ -52,6 +52,8 @@ pyrightconfig.json
    `custom-addons`
    `docker compose restart odoo-dev`
 
+#### Troubleshooting Tips
+
 **Debugging**
    - Set breakpoints in your source code within VSCode.
    - Ensure the debugger is configured to debug external code (`"justMyCode": false` in .vscode/launch.json).
@@ -61,8 +63,6 @@ pyrightconfig.json
      ```
    - Add breakpoints in the Odoo source code.
    - Run the debugger process to start debugging.
-
-#### Troubleshooting Tips
 
 **Copying misc.py in odoodev**
    If backup failures occur with Docker images, modify `misc.py` to resolve issues.
