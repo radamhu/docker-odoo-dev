@@ -1,1 +1,0 @@
-git clone -b 16.0 https://github.com/odoo-ide/odoo-stubs.git
