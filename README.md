@@ -23,7 +23,7 @@ https://github.com/odoo-ide/vscode-odoo
 
 **Python static analysis tool : Odoo Stubs**
 ```bash
-git clone https://github.com/odoo-ide/odoo-stubs.git -b 15.0 odoo-stubs15
+git clone https://github.com/odoo-ide/odoo-stubs.git -b 15.0 odoo-stubs-15
 ```
 pyrightconfig.json
 ```bash
@@ -48,7 +48,7 @@ pyrightconfig.json
    ```
 
 **Add Your Addons**
-   `custom-addons`
+   `mkdir custom-addons`
    `docker compose restart odoo-dev`
 
 **Debugging**

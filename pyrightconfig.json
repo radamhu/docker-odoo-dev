@@ -1,5 +1,5 @@
 {
-    "stubPath": "./odoo-stubs18/",
+    "stubPath": "./odoo-stubs-15/",
     "extraPaths": [
         "./custom-addons/",
     ]
