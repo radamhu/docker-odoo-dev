@@ -39,11 +39,13 @@ pyrightconfig.json
    ```bash
    https://github.com/odoo-ide/pydevd-odoo
    requirements.txt pydevd-odoo
+   change version related parameters in Dockerfile
    docker build -t odoodev:15 .
    ```
 
 **Start Docker Compose**
    ```bash
+   change version related parameters in docker-compose.yml
    docker compose up -d
    ```
 
