@@ -25,7 +25,7 @@ pyenv local 3.9.18 # .python-version
 # direnv, echo 'eval "$(direnv hook bash)"' >> ~/.zshrc
 echo 'layout pyenv 3.9.18' > .envrc
 direnv allow
-source .direnv/python-3.10/bin/activate
+source .direnv/python-3.9.18/bin/activate
 # THIS doesnt need if .envrc/direnv is used
 # python -m venv .venv 
 # source .venv/bin/activate
@@ -60,13 +60,19 @@ pyrightconfig.json
    ```bash
    https://github.com/odoo-ide/pydevd-odoo
    requirements.txt pydevd-odoo
-   change version related parameters in Dockerfile
-   docker build -t odoodev:15 .
+   in Dockerfile
+   - change image sourceand version based on which paltform you are developing
+      arm macos -->FROM wbms/odoo-15.0
+      arm macos -->FROM arm64v8/odoo:15.0
+      x86 --> FROM odoo:15
+   docker build --platform linux/arm64/v8,linux/amd64 -t odoodev:15 .
    ```
 
 **Start Docker Compose**
    ```bash
-   change version related parameters in docker-compose.yml
+   in docker-compose.yml
+   - change version related parameters 
+   --> platform: linux/amd64
    docker compose up -d
    ```
 

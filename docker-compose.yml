@@ -1,6 +1,7 @@
 services:
   web:
     image: odoodev:15
+    platform: linux/amd64
     container_name: o15
     depends_on:
       - mydb
@@ -16,6 +17,7 @@ services:
     entrypoint: /usr/bin/python3 -m debugpy --listen 0.0.0.0:8888 /usr/bin/odoo -c /etc/odoo/odoo.conf -d odoo -i base
   mydb:
     image: postgres:16
+    platform: linux/amd64
     container_name: p16
     environment:
       - POSTGRES_DB=postgres
