@@ -111,16 +111,10 @@ pyrightconfig.json
 
 This repository documents my progress and learnings from the [Odoo 15 Development Tutorials YouTube Playlist](https://www.youtube.com/playlist?list=PLqRRLx0cl0hoZM788LH5M8q7KhiXPyuVU).
 
-## 📌 Overview
-
 - **Total Duration:** ~15 hours
 - **Learning Mode:** Self-paced (1–2 hours per day)
 - **Start Date:** 2025-06-06
 - **Goal:** Gain practical experience in Odoo development and understand how to build and customize ERP modules.
-
----
-
-## 🧭 Syllabus Overview: Odoo 15 Development Tutorials
 
 ### **⏱️ Study Plan: 1–2 Hours Daily**
 Assuming a daily commitment of 1–2 hours, here's an estimated schedule:
