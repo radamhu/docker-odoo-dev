@@ -7,39 +7,27 @@ This project template facilitates Odoo development using Docker, specifically co
 **Clone the Project**
 ```bash
 git clone https://github.com/teguhteja/docker-odoo-dev.git -b 15
-readme.excalidraw
-readme.plantuml
 .gitignore
 .dockerignore
-pyenv install 3.9.18
-pyenv versions
 pyenv local 3.9.18 # .python-version
 # direnv, echo 'eval "$(direnv hook bash)"' >> ~/.zshrc
 echo 'layout pyenv 3.9.18' > .envrc
 direnv allow
 source .direnv/python-3.9.18/bin/activate
-# THIS doesnt need if .envrc/direnv is used
-# python -m venv .venv 
-# source .venv/bin/activate
-pip install -r requirements.txt 
-touch .env
 GH action https://github.com/python-semantic-release/python-semantic-release
 GH readme.md https://github.com/othneildrew/Best-README-Template
 
 ```
 
 **VSCode with the following extensions**
-   - Odoo IDE
+   - [Odoo IDE](https://github.com/odoo-ide/vscode-odoo)
    - Owl Vision
    - Odoo Shortcuts
 
-**Odoo Framework Integration for Visual Studio Code**
-```bash
-https://github.com/odoo-ide/vscode-odoo
-```
 
 **Python static analysis tool : Odoo Stubs**
 ```bash
+.gitignore odoo-stubs-15
 git clone https://github.com/odoo-ide/odoo-stubs.git -b 15.0 odoo-stubs-15
 ```
 pyrightconfig.json
@@ -52,12 +40,11 @@ pyrightconfig.json
 }
 ```
 
-**Build Docker Image w/ pydevd-odoo debugger**
+**Build Docker Image w/ [pydevd-odoo debugger](https://github.com/odoo-ide/pydevd-odoo)**
    ```bash
-   https://github.com/odoo-ide/pydevd-odoo
-   requirements.txt pydevd-odoo
+   add pydevd-odoo to requirements.txt 
    in Dockerfile
-   - change image sourceand version based on which paltform you are developing
+   - change image source and version based on which platform you are developing
       arm macos -->FROM wbms/odoo-15.0
       arm macos -->FROM arm64v8/odoo:15.0
       x86 --> FROM odoo:15
@@ -75,6 +62,7 @@ pyrightconfig.json
 **Add Your Addons**
    - Create a directory for your custom addons:
      ```bash
+     # touch .env
      mkdir custom-addons
      docker compose restart odoo-dev
      ```
@@ -111,101 +99,140 @@ pyrightconfig.json
 
 This repository documents my progress and learnings from the [Odoo 15 Development Tutorials YouTube Playlist](https://www.youtube.com/playlist?list=PLqRRLx0cl0hoZM788LH5M8q7KhiXPyuVU).
 
-- **Total Duration:** ~15 hours
-- **Learning Mode:** Self-paced (1–2 hours per day)
-- **Start Date:** 2025-06-06
-- **Goal:** Gain practical experience in Odoo development and understand how to build and customize ERP modules.
+# 📚 Odoo 15 Development Study Plan (11 Days)
 
-### **⏱️ Study Plan: 1–2 Hours Daily**
-Assuming a daily commitment of 1–2 hours, here's an estimated schedule:
+This plan spans **11 days**, with built-in flexibility for rewatches and reviews.  
+Tick each video off as you progress.  
 
-Week 1:
-- Day 1: Module 1
-- Day 2–3: Module 2
-- Day 4–5: Module 3
+If you dedicate **~1 hour per day**, the full program will take roughly:
 
-Week 2:
-- Day 6–7: Module 4
-- Day 8: Module 5
-- Day 9: Module 6
-- Day 10–11: Module 7
+- **6 weeks (about 42 days)** total  
+- Allowing for 1–2 review/catch-up days each week, expect **7–8 weeks** realistically  
 
-This plan spans approximately 11 days, allowing for flexibility and review sessions.
+This means that with just a small daily investment, you can cover the entire Odoo 15 development track in under **two months**, while still leaving breathing room for rewatching tough topics (ORM overrides, reporting, APIs).
+
+---
 
 ### **Module 1: Introduction to Odoo Development**
-- Setting up the Odoo development environment
-- Creating a new module
-- Understanding module structure
-- Videos: 1–5
-- ⏱️ **Estimated Time:** 1.5 hours
-
-### **Module 2: Models and Fields**
-- Defining models and adding field types
-- Understanding field attributes
-- Custom data structures in Odoo
-- Videos: 6–15
-- ⏱️ **Estimated Time:** 2 hours
-
-### **Module 3: Views and User Interface**
-- Creating form, tree, and kanban views
-- Menu items, actions, and UI customization
-- Working with XML views
-- Videos: 16–25
-- ⏱️ **Estimated Time:** 2 hours
-
-### **Module 4: Business Logic and ORM**
-- Writing business logic in Python
-- Using Odoo ORM methods (`create`, `write`, `unlink`, `search`)
-- Compute fields, decorators, and onchange methods
-- Videos: 26–35
-- ⏱️ **Estimated Time:** 2 hours
-
-### **Module 5: Security and Access Control**
-- Managing user roles and groups
-- Access control lists and record rules
-- Safeguarding business data
-- Videos: 36–40
-- ⏱️ **Estimated Time:** 1.5 hours
-
-### **Module 6: Reporting and QWeb**
-- Creating reports using QWeb
-- Report templates and actions
-- PDF report generation
-- videos: 41–45
-- ⏱️ **Estimated Time:** 1.5 hours
-
-### **Module 7: Advanced Topics**
-- Inheriting and extending core modules
-- Working with APIs
-- Deploying and maintaining custom modules
-- videos: 46–60
-- ⏱️ **Estimated Time:** 4.5 hours
+- [ ] Setting up Odoo with PyCharm  
+- [ ] Configure custom addons path  
+- [ ] Create a new module  
+- [ ] Add an icon for module  
+- [ ] Define menus and actions basics  
+- **Videos:** 1–6  
+- ⏱️ **Estimated Time:** ~1.5 hours  
 
 ---
 
-## 🗓️ Study Plan
-
-| Date       | Module                         | Status       |
-|------------|--------------------------------|--------------|
-| 2025-06-06 | Module 1: Intro to Odoo        | ✅ Completed |
-| 2025-06-07 | Module 2: Models and Fields    | ✅ Completed |
-| 2025-06-08 | Module 3: Views & UI           | ✅ Completed |
-| 2025-06-09 | Module 4: Business Logic/ORM   | ✅ Completed |
-| 2025-06-10 | Module 5: Security & Access    | ✅ Completed |
-| 2025-06-11 | Module 6: Reporting & QWeb     | ✅ Completed |
-| 2025-06-12 | Module 7: Advanced Topics      | ✅ Completed |
+### **Module 2: Models & Security Basics**
+- [ ] Define models and database tables  
+- [ ] Link menus and actions  
+- [ ] Set access rights and icons  
+- **Videos:** 7–8  
+- ⏱️ **Estimated Time:** ~1 hour  
 
 ---
 
-## 📝 Notes
+### **Module 3: Views Essentials**
+- [ ] Create form, tree, and search views  
+- [ ] Add filters and group by options  
+- [ ] Apply domains  
+- [ ] Use default values and context  
+- **Videos:** 9–16  
+- ⏱️ **Estimated Time:** ~3 hours  
 
-- **Module 1:** Set up dev environment, created a basic Odoo module.
-- **Module 2:** Defined fields and models using `fields.Char`, `fields.Many2one`, etc.
-- **Module 3:** Created tree/form views and customized the UI.
-- **Module 4:** Used `@api.depends`, `@api.onchange`, and ORM methods.
-- **Module 5:** Explored security through `ir.model.access.csv` and record rules.
-- **Module 6:** Created custom PDF reports and learned about QWeb templates.
-- **Module 7:** Learned to override core modules and prepare for deployment.
+---
+
+### **Module 4: Communication & Tracking**
+- [ ] Add chatter to forms  
+- [ ] Enable field tracking  
+- [ ] Archive / unarchive records  
+- [ ] Add search panel  
+- **Videos:** 17–19  
+- ⏱️ **Estimated Time:** ~1 hour  
+
+---
+
+### **Module 5: Fields Deep Dive**
+- [ ] Add Many2one fields  
+- [ ] Use date & datetime fields  
+- [ ] Define related and computed fields  
+- [ ] Handle onchange functions  
+- [ ] Configure rec name  
+- [ ] Add notebooks, HTML fields, and images  
+- **Videos:** 20–28  
+- ⏱️ **Estimated Time:** ~3.5 hours  
+
+---
+
+### **Module 6: Widgets & Decorations**
+- [ ] Priority widget & statusbars  
+- [ ] Buttons, help messages, confirmation dialogs  
+- [ ] Rainbow effects, badges, colors, avatars  
+- [ ] Dynamic tree views, resizable/collaborative HTML fields  
+- [ ] Boolean toggles, color pickers, Many2many widget options  
+- [ ] Advanced widgets (radio, selection, handle, progress, calendar, etc.)  
+- **Videos:** 29–43  
+- ⏱️ **Estimated Time:** ~4 hours  
+
+---
+
+### **Module 7: Workflows & Wizards**
+- [ ] Control statusbar using buttons  
+- [ ] Enable hotkeys  
+- [ ] Work with One2many and Many2many fields  
+- [ ] Create and use transient models & wizards  
+- [ ] Load data from XML & CSV  
+- **Videos:** 44–66  
+- ⏱️ **Estimated Time:** ~4.5 hours  
+
+---
+
+### **Module 8: Inheritance & ORM**
+- [ ] Inherit models, fields, functions  
+- [ ] Override create/write/unlink methods  
+- [ ] Work with sequences, default get, name get  
+- [ ] Explore ORM methods (create, browse, search, etc.)  
+- **Videos:** 67–75, 84–85, 98–100  
+- ⏱️ **Estimated Time:** ~5 hours  
+
+---
+
+### **Module 9: Advanced Features**
+- [ ] Apply domains on fields  
+- [ ] Raise validation errors  
+- [ ] Add SQL & Python constraints  
+- [ ] Configure stored/unstored computed fields  
+- [ ] Set inverse functions  
+- [ ] Use ondelete policies & conditional fields  
+- **Videos:** 76–83, 86–96  
+- ⏱️ **Estimated Time:** ~4 hours  
+
+---
+
+### **Module 10: Reporting & Integrations**
+- [ ] Generate QWeb, PDF, and Excel reports  
+- [ ] Add line numbers, barcodes, and QR codes  
+- [ ] Work with external API & XMLRPC  
+- [ ] Use Postman integration  
+- [ ] Implement WhatsApp connector  
+- **Videos:** 97, 101–115  
+- ⏱️ **Estimated Time:** ~5 hours  
+
+---
+
+### **Module 11: Deployment & Debugging**
+- [ ] Run Odoo from CLI  
+- [ ] Configure Odoo server and workers  
+- [ ] Upgrade modules from CLI  
+- [ ] Handle common errors (compute fails, port in use, missing invoice values, etc.)  
+- [ ] Debugging and troubleshooting tips  
+- **Videos:** 116–end  
+- ⏱️ **Estimated Time:** ~3 hours  
+
+---
+
+✅ By the end, you’ll have a **full-circle Odoo dev foundation**: from setup → models/views → widgets → workflows → reporting → APIs → deployment.
 
 ---
 
@@ -219,5 +246,7 @@ This plan spans approximately 11 days, allowing for flexibility and review sessi
 
 ## ✅ Conclusion
 
-This structured journey through the Odoo 15 framework provided hands-on development skills aligned with ERP customization, security, and deployment. As a DevOps Python developer, this knowledge bridges backend automation with ERP system architecture — enabling contributions to business operations at scale.
+This structured journey through the Odoo 15 framework provided hands-on development skills aligned with ERP customization, security, and deployment. 
+
+As a DevOps Python developer, this knowledge bridges backend automation with ERP system architecture — enabling contributions to business operations at scale.
 

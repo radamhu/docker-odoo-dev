@@ -1,6 +1,6 @@
-FROM wbms/odoo-15.0
+#FROM odoo-15
 # FROM arm64v8/odoo:15.0
-# FROM odoo:15
+FROM odoo:15
 
 USER root
 
