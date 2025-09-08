@@ -1,7 +1,7 @@
 # my ignore
 odoo-*
 odoo-stubs-*
-custom_addons/*
+
 
 ### macOS ###
 # General
@@ -62,7 +62,6 @@ __pycache__/
 
 
 odoo16
-custom-addons/
 
 blog-odoo-stub.md
 
