@@ -114,11 +114,11 @@ This means that with just a small daily investment, you can cover the entire Odo
 ---
 
 ### **Module 1: Introduction to Odoo Development**
-- [ ] Setting up Odoo with PyCharm  
-- [ ] Configure custom addons path  
-- [ ] Create a new module  
-- [ ] Add an icon for module  
-- [ ] Define menus and actions basics  
+- [ x] Setting up Odoo with PyCharm  
+- [ x] Configure custom addons path  
+- [ x] Create a new module  
+- [ x] Add an icon for module  
+- [ x] Define menus and actions basics  
 - **Videos:** 1–6  
 - ⏱️ **Estimated Time:** ~1.5 hours  
 
