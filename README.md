@@ -125,9 +125,9 @@ This means that with just a small daily investment, you can cover the entire Odo
 ---
 
 ### **Module 2: Models & Security Basics**
-- [ ] Define models and database tables  
-- [ ] Link menus and actions  
-- [ ] Set access rights and icons  
+- [x ] Define models and database tables  
+- [x ] Link menus and actions  
+- [x ] Set access rights and icons  
 - **Videos:** 7–8  
 - ⏱️ **Estimated Time:** ~1 hour  
 

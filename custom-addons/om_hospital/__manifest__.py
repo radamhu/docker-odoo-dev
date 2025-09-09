@@ -11,7 +11,9 @@
     """,
     'depends': [], # Dependencies
     'data': [
+        'security/ir.model.access.csv', # Security rules
         'views/menu.xml', # Patient views
+        'views/patient_view.xml', # Doctor views
         ], # Data files
     'demo': [], # Demo data files
     'application': True, # This is a custom application
