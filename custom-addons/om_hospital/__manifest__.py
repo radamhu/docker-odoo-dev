@@ -9,7 +9,9 @@
     'summary': 'Manage hospital operations and patient records',
     'description': """
     """,
-    'depends': [], # Dependencies
+    'depends': [
+        'mail', # For Chatter functionality
+        ], # Dependencies
     'data': [
         'security/ir.model.access.csv', # Security rules
         'views/menu.xml', # Patient views

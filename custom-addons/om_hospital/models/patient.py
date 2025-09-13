@@ -4,6 +4,7 @@ from odoo import api, fields, models
 
 class HospitalPatient(models.Model):
     _name = "hospital.patient" # Model name
+    _inherit = ['mail.thread', 'mail.activity.mixin'] # To add chatter functionality
     _description = "Hospital Patient" # Model description
 
     name = fields.Char(string='Patient Name', required=True) # Patient Name
