@@ -14,6 +14,7 @@ class HospitalPatient(models.Model):
         ('female', 'Female'),
         ('other', 'Other'),
     ], string='Gender', required=True)
+    active = fields.Boolean(string='Active', default=True) # Active / action archived button
     # medical_history = fields.Text(string='Medical History')
     # type = fields.Selection([
     #     ('other', 'Regular'),

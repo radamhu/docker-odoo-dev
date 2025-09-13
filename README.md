@@ -135,9 +135,9 @@ This means that with just a small daily investment, you can cover the entire Odo
 
 ### **Module 3: Views Essentials**
 - [x ] Create form, tree, and search views  
-- [ ] Add filters and group by options  
-- [ ] Apply domains  
-- [ ] Use default values and context  
+- [x ] Add filters and group by options : male, female, etecera, gender
+- [x ] Apply domains : female patients
+- [x ] Use default values and context : female patients
 - **Videos:** 9–16  
 - ⏱️ **Estimated Time:** ~3 hours  
 

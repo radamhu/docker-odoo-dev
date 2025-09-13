@@ -14,6 +14,7 @@
         'security/ir.model.access.csv', # Security rules
         'views/menu.xml', # Patient views
         'views/patient_view.xml', # Doctor views
+        'views/female_patient_view.xml', # Female patient views
         ], # Data files
     'demo': [], # Demo data files
     'application': True, # This is a custom application
