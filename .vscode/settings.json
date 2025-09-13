@@ -1,4 +1,5 @@
 {
     "python.languageServer": "None",
-    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${profileName}${separator}${appName}${separator}[Branch: 15]"
+    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${profileName}${separator}${appName}${separator}[Branch: 15]",
+    "xml.symbols.enabled": false
 }

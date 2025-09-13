@@ -19,11 +19,11 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
           cpus: '1.0'
           memory: 1G
-        reservations:
-          cpus: '0.5'
-          memory: 512M
   mydb:
     image: postgres:16
     platform: linux/amd64
@@ -43,11 +43,11 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
           cpus: '0.5'
           memory: 512M
-        reservations:
-          cpus: '0.25'
-          memory: 256M
 volumes:
   o15-data:
   p16-data:

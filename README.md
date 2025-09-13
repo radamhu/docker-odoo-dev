@@ -134,7 +134,7 @@ This means that with just a small daily investment, you can cover the entire Odo
 ---
 
 ### **Module 3: Views Essentials**
-- [ ] Create form, tree, and search views  
+- [x ] Create form, tree, and search views  
 - [ ] Add filters and group by options  
 - [ ] Apply domains  
 - [ ] Use default values and context  
@@ -152,6 +152,8 @@ This means that with just a small daily investment, you can cover the entire Odo
 - ⏱️ **Estimated Time:** ~1 hour  
 
 ---
+
+WEEK
 
 ### **Module 5: Fields Deep Dive**
 - [ ] Add Many2one fields  
@@ -177,6 +179,8 @@ This means that with just a small daily investment, you can cover the entire Odo
 
 ---
 
+WEEK
+
 ### **Module 7: Workflows & Wizards**
 - [ ] Control statusbar using buttons  
 - [ ] Enable hotkeys  
@@ -197,6 +201,8 @@ This means that with just a small daily investment, you can cover the entire Odo
 - ⏱️ **Estimated Time:** ~5 hours  
 
 ---
+
+WEEK 
 
 ### **Module 9: Advanced Features**
 - [ ] Apply domains on fields  
