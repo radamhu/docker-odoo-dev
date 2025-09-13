@@ -145,7 +145,7 @@ This means that with just a small daily investment, you can cover the entire Odo
 
 ### **Module 4: Communication & Tracking**
 - [x ] Add chatter to forms  
-- [ ] Enable field tracking  
+- [x ] Enable field tracking  
 - [ ] Archive / unarchive records  
 - [ ] Add search panel  
 - **Videos:** 17–19  

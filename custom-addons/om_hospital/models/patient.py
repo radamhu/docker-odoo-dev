@@ -7,15 +7,15 @@ class HospitalPatient(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin'] # To add chatter functionality
     _description = "Hospital Patient" # Model description
 
-    name = fields.Char(string='Patient Name', required=True) # Patient Name
-    ref = fields.Char(string='Reference', required=True) # Reference
-    age = fields.Integer(string='Age', required=True) # Age
+    name = fields.Char(string='Patient Name', required=True, tracking=True) # Patient Name
+    ref = fields.Char(string='Reference', required=True, tracking=True) # Reference
+    age = fields.Integer(string='Age', required=True, tracking=True) # Age
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female'),
         ('other', 'Other'),
-    ], string='Gender', required=True)
-    active = fields.Boolean(string='Active', default=True) # Active / action archived button
+    ], string='Gender', required=True, tracking=True)
+    active = fields.Boolean(string='Active', default=True, tracking=True) # Active / action archived button
     # medical_history = fields.Text(string='Medical History')
     # type = fields.Selection([
     #     ('other', 'Regular'),
