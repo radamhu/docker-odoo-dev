@@ -56,6 +56,8 @@ pyrightconfig.json
    in docker-compose.yml
    - change version related parameters 
    --> platform: linux/amd64
+   # update om_hospital module eahc time web service is restarted
+   entrypoint: /usr/bin/python3 -m debugpy --listen 0.0.0.0:8888 /usr/bin/odoo -c /etc/odoo/odoo.conf -d odoo -i base -u om_hospital
    docker compose up -d
    ```
 
@@ -137,6 +139,7 @@ This means that with just a small daily investment, you can cover the entire Odo
 - [x ] Create form, tree, and search views  
 - [x ] Add filters and group by options : male, female, etecera, gender
 - [x ] Apply domains : female patients
+- [x ] Archive / unarchive records  
 - [x ] Use default values and context : female patients
 - **Videos:** 9–16  
 - ⏱️ **Estimated Time:** ~3 hours  
@@ -146,8 +149,7 @@ This means that with just a small daily investment, you can cover the entire Odo
 ### **Module 4: Communication & Tracking**
 - [x ] Add chatter to forms  
 - [x ] Enable field tracking  
-- [ ] Archive / unarchive records  
-- [ ] Add search panel  
+- [x ] Add search panel  
 - **Videos:** 17–19  
 - ⏱️ **Estimated Time:** ~1 hour  
 
