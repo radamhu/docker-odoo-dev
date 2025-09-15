@@ -158,7 +158,7 @@ This means that with just a small daily investment, you can cover the entire Odo
 WEEK
 
 ### **Module 5: Fields Deep Dive**
-- [ ] Add Many2one fields  
+- [x ] Add Many2one fields  
 - [ ] Use date & datetime fields  
 - [ ] Define related and computed fields  
 - [ ] Handle onchange functions  
