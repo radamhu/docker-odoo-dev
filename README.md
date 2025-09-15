@@ -51,13 +51,23 @@ pyrightconfig.json
    docker build --platform linux/arm64/v8,linux/amd64 -t odoodev:15 .
    ```
 
-**Start Docker Compose**
+** Odoo conf **
    ```bash
-   in docker-compose.yml
+   # Session persistence configuration
+   session_dir = /var/lib/odoo/sessions
+   server_wide_modules = base,web,om_hospital
+   ```
+
+**Start Docker Compose**
+
+in docker-compose.yml
+   ```bash   
    - change version related parameters 
    --> platform: linux/amd64
-   # update om_hospital module eahc time web service is restarted
+   # update om_hospital module each time web service is restarted
    entrypoint: /usr/bin/python3 -m debugpy --listen 0.0.0.0:8888 /usr/bin/odoo -c /etc/odoo/odoo.conf -d odoo -i base -u om_hospital
+   - o15-sessions:/var/lib/odoo/sessions
+   
    docker compose up -d
    ```
 
@@ -159,7 +169,7 @@ WEEK
 
 ### **Module 5: Fields Deep Dive**
 - [x ] Add Many2one fields  
-- [ ] Use date & datetime fields  
+- [x ] Use date & datetime fields  
 - [ ] Define related and computed fields  
 - [ ] Handle onchange functions  
 - [ ] Configure rec name  

@@ -17,4 +17,12 @@ COPY ./requirements.txt /requirements.txt
 RUN pip3 install -r /requirements.txt
 RUN rm /requirements.txt
 
+# Create session directory with proper permissions
+RUN mkdir -p /var/lib/odoo/sessions && \
+    chown -R odoo:odoo /var/lib/odoo/sessions && \
+    chmod 755 /var/lib/odoo/sessions
+
+# Switch back to odoo user
+USER odoo
+
 # COPY ./misc.py /usr/lib/python3/dist-packages/odoo/tools/misc.py

@@ -14,13 +14,13 @@ services:
       - ./conf:/etc/odoo
       - ./custom-addons:/mnt/custom-addons
       - o15-data:/var/lib/odoo
-      # - ./odoo:/usr/lib/python3/dist-packages/odoo # uncomment this if you want to mount odoo source code 
+      - o15-sessions:/var/lib/odoo/sessions
     entrypoint: /usr/bin/python3 -m debugpy --listen 0.0.0.0:8888 /usr/bin/odoo -c /etc/odoo/odoo.conf -d odoo -i base -u om_hospital
     deploy:
       resources:
         limits:
-          cpus: '2.0'
-          memory: 2G
+          cpus: '1.5'
+          memory: 1.2G
         reservations:
           cpus: '1.0'
           memory: 1G
@@ -51,3 +51,4 @@ services:
 volumes:
   o15-data:
   p16-data:
+  o15-sessions:

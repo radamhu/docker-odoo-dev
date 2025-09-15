@@ -1,5 +1,5 @@
-# my ignore
-odoo-*
+# Odoo 
+.odoo/
 odoo-stubs-*
 
 

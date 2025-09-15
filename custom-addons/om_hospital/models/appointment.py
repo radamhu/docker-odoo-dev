@@ -12,3 +12,5 @@ class HospitalAppointment(models.Model):
         comodel_name="hospital.patient", # Related model
         string="Patient", # Field label
     )
+    appointment_time = fields.Datetime(string="Appointment Time")
+    booking_date = fields.Date(string="Booking Date", default=fields.Date.today)
