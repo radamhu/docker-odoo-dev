@@ -173,7 +173,7 @@ WEEK
 - [x ] Define related and computed fields  
 - [x ] Handle onchange functions  
 - [x ] Configure rec name  
-- [ ] Add notebooks, HTML fields, and images  
+- [x ] Add notebooks, HTML fields, and images  
 - **Videos:** 20–28  
 - ⏱️ **Estimated Time:** ~3.5 hours  
 
