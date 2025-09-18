@@ -170,7 +170,7 @@ WEEK
 ### **Module 5: Fields Deep Dive**
 - [x ] Add Many2one fields  
 - [x ] Use date & datetime fields  
-- [ ] Define related and computed fields  
+- [x ] Define related and computed fields  
 - [ ] Handle onchange functions  
 - [ ] Configure rec name  
 - [ ] Add notebooks, HTML fields, and images  

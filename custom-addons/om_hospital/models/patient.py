@@ -8,13 +8,13 @@ class HospitalPatient(models.Model):
     _description = "Hospital Patient" # Model description
 
     name = fields.Char(string='Patient Name', required=True, tracking=True) # Patient Name
-    ref = fields.Char(string='Reference', required=True, tracking=True) # Reference
+    ref = fields.Char(string='Reference', required=True, tracking=True, default='New') # Reference
     age = fields.Integer(string='Age', required=True, tracking=True) # Age
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female'),
         ('other', 'Other'),
-    ], string='Gender', required=True, tracking=True)
+    ], string='Gender', required=True, tracking=True, default='female')
     active = fields.Boolean(string='Active', default=True, tracking=True) # Active / action archived button
     # medical_history = fields.Text(string='Medical History')
     # type = fields.Selection([
