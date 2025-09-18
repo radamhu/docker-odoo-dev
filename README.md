@@ -171,7 +171,7 @@ WEEK
 - [x ] Add Many2one fields  
 - [x ] Use date & datetime fields  
 - [x ] Define related and computed fields  
-- [ ] Handle onchange functions  
+- [x ] Handle onchange functions  
 - [ ] Configure rec name  
 - [ ] Add notebooks, HTML fields, and images  
 - **Videos:** 20–28  

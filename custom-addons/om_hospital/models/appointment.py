@@ -15,3 +15,8 @@ class HospitalAppointment(models.Model):
     gender = fields.Selection(related='patient_id.gender') # Related field to patient
     appointment_time = fields.Datetime(string="Appointment Time", default=fields.Datetime.now) # Datetime field with default value
     booking_date = fields.Date(string="Booking Date", default=fields.Date.context_today) # Date field with default value
+    ref = fields.Char(string='Reference') # Reference
+    
+    @api.onchange('patient_id') # Onchange method to update ref when patient changes
+    def _onchange_patient_id(self):
+        self.ref = self.patient_id.ref
