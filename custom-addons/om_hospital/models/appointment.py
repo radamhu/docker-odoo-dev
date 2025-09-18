@@ -16,6 +16,7 @@ class HospitalAppointment(models.Model):
     appointment_time = fields.Datetime(string="Appointment Time", default=fields.Datetime.now) # Datetime field with default value
     booking_date = fields.Date(string="Booking Date", default=fields.Date.context_today) # Date field with default value
     ref = fields.Char(string='Reference') # Reference
+    prescription = fields.Html(string="Prescription") # HTML field for rich text
     
     @api.onchange('patient_id') # Onchange method to update ref when patient changes
     def _onchange_patient_id(self):
