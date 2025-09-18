@@ -6,10 +6,10 @@ class HospitalAppointment(models.Model):
     _name = "hospital.appointment" # Model name
     _inherit = ['mail.thread', 'mail.activity.mixin'] # To add chatter functionality
     _description = "Hospital Appointment" # Model description
+    _rec_name = 'patient_id' # Set the record name to the 'patient_id' field, breadcrumbs will show patient name
     
     # Define fields many2one to link to patient model
-    patient_id = fields.Many2one(
-        comodel_name="hospital.patient", # Related model
+    patient_id = fields.Many2one("hospital.patient", # Related model
         string="Patient", # Field label
     )
     gender = fields.Selection(related='patient_id.gender') # Related field to patient

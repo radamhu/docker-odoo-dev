@@ -9,7 +9,7 @@ class HospitalPatient(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin'] # To add chatter functionality
     _description = "Hospital Patient" # Model description
 
-    name = fields.Char(string='Patient Name', tracking=True) # Patient Name
+    name = fields.Char(string='Patient Name', tracking=True) # Patient Name. breadcrumbs will show patient name
     date_of_birth = fields.Date(string='Date of Birth') # Date of Birth
     ref = fields.Char(string='Reference') # Reference
     age = fields.Integer(string='Age', compute='_compute_age', tracking=True, store=True) # Computed field for Age
@@ -19,6 +19,10 @@ class HospitalPatient(models.Model):
         ('other', 'Other'),
     ], string='Gender', required=True, tracking=True, default='female')
     active = fields.Boolean(string='Active', default=True, tracking=True) # Active / action archived button
+    appointment_id = fields.Many2one( # One2many field to link to appointments model
+        "hospital.appointment", # Related model
+        string="Appointments" # Field label
+    )
 
     """
     Compute the age of the patient based on their date of birth.

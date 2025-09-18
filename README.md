@@ -172,7 +172,7 @@ WEEK
 - [x ] Use date & datetime fields  
 - [x ] Define related and computed fields  
 - [x ] Handle onchange functions  
-- [ ] Configure rec name  
+- [x ] Configure rec name  
 - [ ] Add notebooks, HTML fields, and images  
 - **Videos:** 20–28  
 - ⏱️ **Estimated Time:** ~3.5 hours  
