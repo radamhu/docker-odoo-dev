@@ -23,7 +23,13 @@ class HospitalAppointment(models.Model):
         ('2', 'High'),
         ('3', 'Very High')
     ], string="Priority", default='1') # Default priority is 'Normal'
-    
+    state = fields.Selection([ # Status widget for state
+        ('draft', 'Draft'),
+        ('in_consultation', 'In consultation'),
+        ('done', 'Done'),
+        ('cancel', 'Cancelled')
+    ], string="State", default='draft', required=True) # Default state is 'Normal'
+
     @api.onchange('patient_id') # Onchange method to update ref when patient changes
     def _onchange_patient_id(self):
         self.ref = self.patient_id.ref

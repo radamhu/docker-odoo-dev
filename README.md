@@ -180,7 +180,7 @@ WEEK
 ---
 
 ### **Module 6: Widgets & Decorations**
-- [ ] Priority widget & statusbars  
+- [x ] Priority widget & statusbars  
 - [ ] Buttons, help messages, confirmation dialogs  
 - [ ] Rainbow effects, badges, colors, avatars  
 - [ ] Dynamic tree views, resizable/collaborative HTML fields  
