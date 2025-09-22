@@ -76,7 +76,7 @@
                         <page string="Prescription" name="prescription">
                             <!-- Prescription details with collaborative editing -->
                             <field name="prescription" placeholder="Enter prescription details here..."
-                            options="{'collaborative': true}"/>
+                            options="{'collaborative': true, 'resizable': true}"/>
                         </page>
                         <page string="Pharmacy" name="pharmacy">
                         </page>
