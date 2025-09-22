@@ -184,7 +184,7 @@ WEEK
 - [x ] Buttons, help messages, confirmation dialogs  
 - [x ] Rainbow effects, badges, colors, avatars  
 - [x ] Dynamic tree views, resizable/collaborative HTML fields  
-- [ ] Boolean toggles, color pickers, Many2many widget options  
+- [x ] Boolean toggles, color pickers, Many2many widget options  
 - [ ] Advanced widgets (activity, radio, selection, handle, progress, calendar, etc.)  
 - **Videos:** 29–43  
 - ⏱️ **Estimated Time:** ~4 hours  

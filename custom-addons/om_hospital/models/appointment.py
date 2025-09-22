@@ -29,6 +29,7 @@ class HospitalAppointment(models.Model):
         ('done', 'Done'),
         ('cancel', 'Cancelled')
     ], string="State", default='draft', required=True) # Default state is 'Normal'
+    doctor_id = fields.Many2one("res.users", string="Doctor") # Many2one to res.users for doctor
 
     @api.onchange('patient_id') # Onchange method to update ref when patient changes
     def _onchange_patient_id(self):
