@@ -183,9 +183,9 @@ WEEK
 - [x ] Priority widget & statusbars  
 - [x ] Buttons, help messages, confirmation dialogs  
 - [x ] Rainbow effects, badges, colors, avatars  
-- [ ] Dynamic tree views, resizable/collaborative HTML fields  
+- [x ] Dynamic tree views, resizable/collaborative HTML fields  
 - [ ] Boolean toggles, color pickers, Many2many widget options  
-- [x ] Advanced widgets (activity, radio, selection, handle, progress, calendar, etc.)  
+- [ ] Advanced widgets (activity, radio, selection, handle, progress, calendar, etc.)  
 - **Videos:** 29–43  
 - ⏱️ **Estimated Time:** ~4 hours  
 
