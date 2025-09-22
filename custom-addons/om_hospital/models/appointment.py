@@ -41,4 +41,5 @@ class HospitalAppointment(models.Model):
                 'fadeout': 'slow',
                 'message': 'Test button clicked',
                 'type': 'rainbow_man'
+            }
         }
