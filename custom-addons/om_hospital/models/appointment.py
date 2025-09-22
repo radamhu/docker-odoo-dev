@@ -33,3 +33,6 @@ class HospitalAppointment(models.Model):
     @api.onchange('patient_id') # Onchange method to update ref when patient changes
     def _onchange_patient_id(self):
         self.ref = self.patient_id.ref
+    
+    def action_start_consultation(self): # Method to change state to 'in_consultation'
+        self.state = 'in_consultation'
