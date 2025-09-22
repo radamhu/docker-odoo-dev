@@ -17,6 +17,12 @@ class HospitalAppointment(models.Model):
     booking_date = fields.Date(string="Booking Date", default=fields.Date.context_today) # Date field with default value
     ref = fields.Char(string='Reference') # Reference
     prescription = fields.Html(string="Prescription") # HTML field for rich text
+    priority = fields.Selection([ # Stars widget for priority
+        ('0', 'Low'),
+        ('1', 'Normal'),
+        ('2', 'High'),
+        ('3', 'Very High')
+    ], string="Priority", default='1') # Default priority is 'Normal'
     
     @api.onchange('patient_id') # Onchange method to update ref when patient changes
     def _onchange_patient_id(self):
