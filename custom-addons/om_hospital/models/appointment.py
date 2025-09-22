@@ -15,7 +15,7 @@ class HospitalAppointment(models.Model):
     gender = fields.Selection(related='patient_id.gender') # Related field to patient
     appointment_time = fields.Datetime(string="Appointment Time", default=fields.Datetime.now) # Datetime field with default value
     booking_date = fields.Date(string="Booking Date", default=fields.Date.context_today) # Date field with default value
-    ref = fields.Char(string='Reference') # Reference
+    ref = fields.Char(string='Reference', help='Reference for the appointment from patient record') # Reference field
     prescription = fields.Html(string="Prescription") # HTML field for rich text
     priority = fields.Selection([ # Stars widget for priority
         ('0', 'Low'),
