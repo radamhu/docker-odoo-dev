@@ -34,5 +34,11 @@ class HospitalAppointment(models.Model):
     def _onchange_patient_id(self):
         self.ref = self.patient_id.ref
     
-    def action_start_consultation(self): # Method to change state to 'in_consultation'
-        self.state = 'in_consultation'
+    def action_test(self): # Method to change state to 'in_consultation'
+        print("Test button clicked")
+        return {
+            'effect': {
+                'fadeout': 'slow',
+                'message': 'Test button clicked',
+                'type': 'rainbow_man'
+        }

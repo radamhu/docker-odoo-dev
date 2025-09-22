@@ -40,7 +40,7 @@
                         <group>
                             <field name="appointment_time"/>
                             <!-- type="object" calls function -->
-                            <button name="action_start_consultation" string="Start Consultation"
+                            <button name="action_test" string="Start Consultation"
                                         help="This button will change the state to 'In Consultation'"
                                         confirm="Are you sure you want to start the consultation?"
                                         type="object" class="oe_highlight"/>
