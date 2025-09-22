@@ -18,6 +18,7 @@
                 <field name="patient_id"/>
                 <field name="appointment_time"/>
                 <field name="booking_date"/>
+                <field name="activity_ids" widget="list_activity"/>
                 <field name="state" 
                         decoration-success="state == 'done'"
                         decoration-info="state == 'draft'"
