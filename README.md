@@ -194,7 +194,7 @@ WEEK
 WEEK
 
 ### **Module 7: Workflows & Wizards**
-- [ ] Control statusbar using buttons  
+- [x ] Control statusbar using buttons  
 - [ ] Enable hotkeys  
 - [ ] Work with One2many and Many2many fields  
 - [ ] Create and use transient models & wizards  

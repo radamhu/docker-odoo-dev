@@ -14,7 +14,8 @@
             <tree decoration-success="state == 'done'" 
                   decoration-info="state == 'draft'"
                   decoration-danger="state == 'cancel'"
-                  decoration-warning="state == 'in_consultation'">
+                  decoration-warning="state == 'in_consultation'"
+                  sample="1">
                 <field name="patient_id"/>
                 <!-- dynamic tree view optional fields -->
                 <field name="ref" optional="show"/>
