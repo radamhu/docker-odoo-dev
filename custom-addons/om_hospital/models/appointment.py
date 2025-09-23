@@ -30,6 +30,9 @@ class HospitalAppointment(models.Model):
         ('cancel', 'Cancelled')
     ], string="State", default='draft', required=True) # Default state is 'Normal'
     doctor_id = fields.Many2one("res.users", string="Doctor", tracking=True) # Many2one to res.users for doctor
+    # one2many endings in _ids and many2one endings in _id
+    # from hospital.appointment.pharmacy.lines import appointment_id
+    pharmacy_line_ids = fields.One2many("hospital.appointment.pharmacy.lines", "appointment_id", string="Pharmacy Lines") # One2many to pharmacy lines model
 
     @api.onchange('patient_id') # Onchange method to update ref when patient changes
     def _onchange_patient_id(self):
@@ -61,3 +64,16 @@ class HospitalAppointment(models.Model):
     def action_draft(self): # Method to change state to 'draft':
         for rec in self:
             rec.state = 'draft'
+
+# define a new model for appointment pharmacy lines
+# many2one to product.product for product
+class AppointmentPharmacyLines(models.Model):
+    _name = "hospital.appointment.pharmacy.lines" # Model name
+    _description = "Appointment Pharmacy Lines" # Model description
+
+    product_id = fields.Many2one("product.product", string="Product", required=True) # Many2one to product.product for product
+    price_unit = fields.Float(related="product_id.list_price", string="Unit Price", readonly=True) # Related field to product's list price
+    qty = fields.Integer(string="Quantity", default=1) # Integer field for quantity with default value
+    # define many2one to hospital.appointment for appointment
+    # one2many fields you should have the many2one field in the related model
+    appointment_id = fields.Many2one("hospital.appointment", string="Appointment") # Many2one to hospital.appointment for appointment

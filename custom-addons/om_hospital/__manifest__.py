@@ -11,6 +11,7 @@
     """,
     'depends': [
         'mail', # For Chatter functionality
+        'product' # For product management in pharmacy lines
         ], # Dependencies
     'data': [
         'security/ir.model.access.csv', # Security rules
