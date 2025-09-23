@@ -67,16 +67,19 @@
                             <field name="booking_date" help="Booking date for the appointment" default_focus="1"/>
                         </group>
                         <group>
-                            <field name="hide_sales_price"/>
+                            <!-- Hide Sales Price, once you activate debug mode it will be shown -->
+                            <field name="hide_sales_price" groups="base.group_no_one"/>
                             <field name="appointment_time"/>
                             <!-- type="object" calls function -->
                             <button name="action_test" string="Start Consultation"
                                         help="This button will change the state to 'In Consultation'"
+                                        groups="base.group_no_one"
                                         confirm="Are you sure you want to start the consultation?"
                                         type="object" class="oe_highlight"/>
                             <!-- type="action" calls an action -->
                             <button name="%(om_hospital.action_hospital_patient)d" string="Action button"
                                         help="This button will open the patient form view"
+                                        groups="base.group_no_one"
                                         confirm="Are you sure you want to open the patient form view?"
                                         type="action" class="oe_highlight"/>
                         </group>
