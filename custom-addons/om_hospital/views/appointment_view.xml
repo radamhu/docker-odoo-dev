@@ -15,7 +15,8 @@
                   decoration-info="state == 'draft'"
                   decoration-danger="state == 'cancel'"
                   decoration-warning="state == 'in_consultation'"
-                  sample="1">
+                  sample="1"
+                  multi_edit="true">
                 <field name="patient_id"/>
                 <!-- dynamic tree view optional fields -->
                 <field name="ref" optional="show"/>
