@@ -195,7 +195,7 @@ WEEK
 
 ### **Module 7: Workflows & Wizards**
 - [x ] Control statusbar using buttons  
-- [ ] Enable hotkeys  
+- [x ] Enable hotkeys  
 - [ ] Work with One2many and Many2many fields  
 - [ ] Create and use transient models & wizards  
 - [ ] Load data from XML & CSV  

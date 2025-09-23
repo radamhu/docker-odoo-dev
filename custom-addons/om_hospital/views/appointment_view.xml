@@ -44,8 +44,8 @@
                 <header>
                     <button name="action_in_consultation" string="In Consultation" type="object" states="draft" class="oe_highlight"/>
                     <!-- only available this button when states in_consultation -->
-                    <button name="action_done" string="Done" type="object" states="in_consultation" class="oe_highlight"/>
-                    <button name="action_cancel" string="Cancel" type="object" states="draft,in_consultation"/>
+                    <button name="action_done" string="Done" type="object" states="in_consultation" class="oe_highlight" data-hotkey="v"/>
+                    <button name="action_cancel" string="Cancel" type="object" states="draft,in_consultation" data-hotkey="c"/>
                     <button name="action_draft" string="Reset to Draft" type="object" states="cancel"/>
                     <!-- enable fields clickable options="{'clickable': '1'}" -->
                     <field name="state" widget="statusbar" nolabel="1" 
