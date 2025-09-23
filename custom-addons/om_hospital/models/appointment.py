@@ -29,7 +29,7 @@ class HospitalAppointment(models.Model):
         ('done', 'Done'),
         ('cancel', 'Cancelled')
     ], string="State", default='draft', required=True) # Default state is 'Normal'
-    doctor_id = fields.Many2one("res.users", string="Doctor") # Many2one to res.users for doctor
+    doctor_id = fields.Many2one("res.users", string="Doctor", tracking=True) # Many2one to res.users for doctor
 
     @api.onchange('patient_id') # Onchange method to update ref when patient changes
     def _onchange_patient_id(self):
@@ -44,3 +44,20 @@ class HospitalAppointment(models.Model):
                 'type': 'rainbow_man'
             }
         }
+    
+    # In this model, each function is used to update the appointment's state (e.g., to 'done', 'cancel', etc.) or to react to changes in the patient selection (updating the reference field).
+    def action_in_consultation(self): # Method to change state to 'in_consultation':
+        for rec in self:
+            rec.state = 'in_consultation'
+
+    def action_done(self): # Method to change state to 'done':
+        for rec in self:
+            rec.state = 'done'
+    
+    def action_cancel(self): # Method to change state to 'cancel':
+        for rec in self:
+            rec.state = 'cancel'
+    
+    def action_draft(self): # Method to change state to 'draft':
+        for rec in self:
+            rec.state = 'draft'

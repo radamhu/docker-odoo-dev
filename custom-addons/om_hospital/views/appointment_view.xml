@@ -42,7 +42,13 @@
             <form string="Hospital Appointment">
                 <!-- Header Status widget -->
                 <header>
-                    <field name="state" widget="statusbar" nolabel="1" options="{'clickable': '1'}" 
+                    <button name="action_in_consultation" string="In Consultation" type="object" states="draft" class="oe_highlight"/>
+                    <!-- only available this button when states in_consultation -->
+                    <button name="action_done" string="Done" type="object" states="in_consultation" class="oe_highlight"/>
+                    <button name="action_cancel" string="Cancel" type="object" states="draft,in_consultation"/>
+                    <button name="action_draft" string="Reset to Draft" type="object" states="cancel"/>
+                    <!-- enable fields clickable options="{'clickable': '1'}" -->
+                    <field name="state" widget="statusbar" nolabel="1" 
                             statusbar_visible="draft,in_consultation,done,cancel"/>
                 </header>
                 <sheet>
