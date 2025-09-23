@@ -33,6 +33,7 @@ class HospitalAppointment(models.Model):
     # one2many endings in _ids and many2one endings in _id
     # from hospital.appointment.pharmacy.lines import appointment_id
     pharmacy_line_ids = fields.One2many("hospital.appointment.pharmacy.lines", "appointment_id", string="Pharmacy Lines") # One2many to pharmacy lines model
+    hide_sales_price = fields.Boolean(string="Hide Sale Price") # Boolean field to hide sale price
 
     @api.onchange('patient_id') # Onchange method to update ref when patient changes
     def _onchange_patient_id(self):
