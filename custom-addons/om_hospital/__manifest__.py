@@ -19,6 +19,7 @@
         'views/patient_view.xml', # Doctor views
         'views/female_patient_view.xml', # Female patient views
         'views/appointment_view.xml', # Appointment views
+        'views/patient_tag_view.xml', # Patient Tag views
         ], # Data files
     'demo': [], # Demo data files
     'application': True, # This is a custom application
