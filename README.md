@@ -111,9 +111,8 @@ in docker-compose.yml
 
 This repository documents my progress and learnings from the [Odoo 15 Development Tutorials YouTube Playlist](https://www.youtube.com/playlist?list=PLqRRLx0cl0hoZM788LH5M8q7KhiXPyuVU).
 
-# 📚 Odoo 15 Development Study Plan (11 Days)
+# 📚 Odoo 15 Development Study Plan
 
-This plan spans **11 days**, with built-in flexibility for rewatches and reviews.  
 Tick each video off as you progress.  
 
 If you dedicate **~1 hour per day**, the full program will take roughly:
@@ -268,3 +267,109 @@ This structured journey through the Odoo 15 framework provided hands-on developm
 
 As a DevOps Python developer, this knowledge bridges backend automation with ERP system architecture — enabling contributions to business operations at scale.
 
+
+## Playlist Comparison (15 → 16 → 17/18)
+
+| Topic                                    | Odoo 15              | Odoo 16                                   | Odoo 17/18                      | Action                                             |
+| ---------------------------------------- | -------------------- | ----------------------------------------- | ------------------------------- | -------------------------------------------------- |
+| Environment setup (IDE, addons path, DB) | Covered              | Covered                                   | Covered                         | **Skip** – identical                               |
+| Module creation & manifest               | Covered              | Covered                                   | Covered                         | **Skip**, just check new manifest keys per version |
+| ORM: models & fields                     | Covered              | Covered                                   | Covered                         | **Skip** – same ORM core                           |
+| Computed fields, `@api.depends`          | Covered              | Covered                                   | Covered                         | **Skip**                                           |
+| Onchange methods                         | Covered              | Covered                                   | Covered                         | **Skip**                                           |
+| Security (groups, rules, ACLs)           | Covered              | Covered                                   | Covered                         | **Skip**                                           |
+| Views (form, tree, kanban)               | Covered              | Covered                                   | Covered                         | **Skip**                                           |
+| QWeb reports                             | Covered              | Covered                                   | Covered                         | **Skip**, small styling diffs only                 |
+| Wizards                                  | Covered              | Covered                                   | Covered                         | **Skip**                                           |
+| Scheduled actions / Cron                 | Covered              | Covered                                   | Covered                         | **Skip**                                           |
+| Website basics (controllers, templates)  | Covered              | **Revamped website builder**              | Covered                         | **Focus** from 16 onward                           |
+| Controllers (routes, JSON)               | Covered              | Covered                                   | Covered                         | **Skip**                                           |
+| JavaScript / assets                      | Covered (classic JS) | **OWL adoption**                          | **OWL 2, more frontend in JS**  | **Focus** in 16+, esp. 17/18                       |
+| API integrations                         | Covered              | Covered                                   | Covered                         | **Skip**                                           |
+| Accounting                               | Covered              | **Changed fields, reconciliation widget** | **Further improvements**        | **Focus** from 16 onward                           |
+| MRP & Manufacturing                      | Minor                | **Revamped**                              | **Expanded again**              | **Focus** if you need MRP                          |
+| New modules                              | N/A                  | Knowledge app introduced                  | Spreadsheets, Knowledge matured | **Focus if relevant**                              |
+
+### 🔑 Key Differences Across Versions
+
+- Odoo 16: Big performance revamp, new Knowledge app, website builder changes, OWL v1 in frontend. Accounting reworked.
+- Odoo 17: UX polish (menus, search bar), website + eCommerce fully unified, OWL 2 in web client.
+- Odoo 18 (early dev): Strengthening the OWL framework, refining accounting & inventory, more AI-assisted features.
+
+### 🎯 Study Efficiency
+
+Skip repeating basics: module creation, ORM, views, security, reports, wizards, cron. Same from 15 → 18.
+
+Focus zones:
+
+- Frontend evolution (classic JS → OWL v1 → OWL v2).
+- Website/eCommerce (rebuilt in 16, unified in 17).
+- Accounting/MRP (major differences each release).
+- New modules (Knowledge, Spreadsheet, AI helpers).
+
+## 🚀 Odoo Developer Fast-Track (15 → 16 → 17/18)
+
+✅ Already Safe in Your Brain (Skip in 16/17/18)
+
+- Environment setup (IDE, addons path, DB)
+- Module creation & manifest basics (just glance at manifest changelog)
+- ORM fundamentals (models, fields, computed, onchange)
+- Security (groups, ACLs, rules)
+- Views (form, tree, kanban)
+- QWeb reports basics
+- Wizards / TransientModels
+- Cron jobs / scheduled actions
+- Controllers & REST API basics
+
+If you learned these in Odoo 15, they didn’t magically change in 16/17/18. Stop wasting time.
+
+### 🎯 Must-Watch by Version
+
+**From Odoo 16 tutorials**
+
+Website builder overhaul (new asset bundling, drag-drop, integration with backend)
+- Frontend: OWL v1 adoption, new JS patterns
+- Accounting: reconciliation widget, field removals/renames
+- Knowledge app intro (brand new module)
+- Manufacturing (MRP) upgrades: subcontractor portal, order splitting/merging
+
+**From Odoo 17 tutorials**
+
+- UX changes: redesigned menu system, global search bar improvements
+- Website + eCommerce unification (no more half-baked separation)
+- Frontend: OWL v2 (more stable, bigger ecosystem)
+- Spreadsheets module integration (important if you want reporting inside Odoo)
+
+**From Odoo 18 tutorials (bleeding edge, but worth peeking)**
+
+- AI-assisted features (suggestions, auto-completions, smart reconciliations)
+- Refinements in Accounting & Inventory (incremental but dev-relevant)
+- Continued OWL framework maturity (expect more frontend dev to shift here)
+
+**📌 Fast-Track Watch Order**
+
+1. Finish your Odoo 15 playlist → lock in fundamentals.
+2. Jump straight to Odoo 16 → watch only:
+
+   - Website builder
+   - OWL frontend intro
+   - Accounting changes
+   - Knowledge app
+   - MRP upgrades
+
+3. From Odoo 17 playlist → skip repeats, watch:
+   - UX redesign (menus/search)
+   - Website/eCommerce merge
+   - OWL v2 deep-dive
+   - Spreadsheets integration
+
+4. From Odoo 18 playlist → just cherry-pick:
+   - AI helpers
+   - Latest Accounting/Inventory tweaks
+   - OWL refinements
+
+### 🏁 End Result
+
+- You keep your time: ~20–25% of the videos instead of 100%.
+- You stay current on what actually changed.
+- You avoid the soul-crushing repetition of “create a new module” tutorials.
