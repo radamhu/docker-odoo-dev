@@ -22,6 +22,7 @@
                 <sheet>
                     <group>
                         <group>
+                            <field name="image" class="oe_avatar" widget="image" options="{'preview_image': 'image_1920'}"/>
                             <field name="name"/>
                             <field name="date_of_birth"/>
                             <field name="age"/>

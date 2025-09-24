@@ -196,7 +196,7 @@ WEEK
 - [x ] Control statusbar using buttons  
 - [x ] Enable hotkeys  
 - [x ] Work with One2many and Many2many fields  
-- [ ] Create and use transient models & wizards  
+- [x ] Create and use transient models & wizards  
 - [ ] Load data from XML & CSV  
 - **Videos:** 44–66  
 - ⏱️ **Estimated Time:** ~4.5 hours  

@@ -23,6 +23,7 @@ class HospitalPatient(models.Model):
         "hospital.appointment", # Related model
         string="Appointments" # Field label
     )
+    image = fields.Image(string="Patient Image") # Image field for patient photo
 
     """
     Compute the age of the patient based on their date of birth.
