@@ -24,6 +24,10 @@ class HospitalPatient(models.Model):
         string="Appointments" # Field label
     )
     image = fields.Image(string="Patient Image") # Image field for patient photo
+    tag_ids = fields.Many2many( # Many2many field for patient tags, this wont be stored in  hospital_patient table
+        "patient.tag", # Related model
+        string="Tags" # Field label
+    )
 
     """
     Compute the age of the patient based on their date of birth.
