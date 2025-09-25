@@ -15,6 +15,7 @@
         ], # Dependencies
     'data': [
         'security/ir.model.access.csv', # Security rules
+        'wizard/cancel_appointment_view.xml', # Wizard views order is important here transient models first after security
         'views/menu.xml', # Patient views
         'views/patient_view.xml', # Doctor views
         'views/female_patient_view.xml', # Female patient views
