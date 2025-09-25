@@ -16,6 +16,7 @@
     'data': [
         'security/ir.model.access.csv', # Security rules
         'data/patient_tag_data.xml', # Initial data for patient tags
+        'data/patient.tag.csv', # Initial data for patient tags
         'wizard/cancel_appointment_view.xml', # Wizard views order is important here transient models first after security
         'views/menu.xml', # Patient views
         'views/patient_view.xml', # Doctor views
