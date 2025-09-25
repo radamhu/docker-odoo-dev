@@ -9,6 +9,7 @@
             <form string="Cancel Appointment">
                 <group>
                     <field name="appointment_id"/>
+                    <field name="reason"/>
                 </group>
                 <group>
                 </group>
