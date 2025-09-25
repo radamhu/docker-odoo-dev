@@ -59,7 +59,7 @@ class HospitalAppointment(models.Model):
             rec.state = 'done'
     
     def action_cancel(self): # Method to change state to 'cancel':
-        action = self.env.ref('om_hospital.action_cancel_appointment_wizard').read()[0]
+        action = self.env.ref('om_hospital.action_cancel_appointment_wizard').read()[0] # Get the action for the cancel appointment wizard
         return action
     
     def action_draft(self): # Method to change state to 'draft':
