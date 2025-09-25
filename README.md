@@ -198,6 +198,10 @@ This means that with just a small daily investment, you can cover the entire Odo
 --- 
 
 ### **Module 8: Inheritance & ORM**
+- [ ] Create module with scaffold command
+```bash
+docker exec -it o15 /usr/bin/odoo scaffold om_odoo_inheritance /mnt/custom-addons
+```
 - [ ] Inherit models, fields, functions  
 - [ ] Override create/write/unlink methods  
 - [ ] Work with sequences, default get, name get  
