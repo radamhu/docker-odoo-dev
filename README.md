@@ -164,8 +164,6 @@ This means that with just a small daily investment, you can cover the entire Odo
 
 ---
 
-WEEK
-
 ### **Module 5: Fields Deep Dive**
 - [x ] Add Many2one fields  
 - [x ] Use date & datetime fields  
@@ -175,8 +173,6 @@ WEEK
 - [x ] Add notebooks, HTML fields, and images  
 - **Videos:** 20–28  
 - ⏱️ **Estimated Time:** ~3.5 hours  
-
----
 
 ### **Module 6: Widgets & Decorations**
 - [x ] Priority widget & statusbars  
@@ -190,8 +186,6 @@ WEEK
 
 ---
 
-WEEK
-
 ### **Module 7: Workflows & Wizards**
 - [x ] Control statusbar using buttons  
 - [x ] Enable hotkeys  
@@ -201,7 +195,7 @@ WEEK
 - **Videos:** 44–66  
 - ⏱️ **Estimated Time:** ~4.5 hours  
 
----
+--- 
 
 ### **Module 8: Inheritance & ORM**
 - [ ] Inherit models, fields, functions  
@@ -213,7 +207,7 @@ WEEK
 
 ---
 
-WEEK 
+WEEK
 
 ### **Module 9: Advanced Features**
 - [ ] Apply domains on fields  
@@ -237,6 +231,8 @@ WEEK
 - ⏱️ **Estimated Time:** ~5 hours  
 
 ---
+
+DISMISSED
 
 ### **Module 11: Deployment & Debugging**
 - [ ] Run Odoo from CLI  
