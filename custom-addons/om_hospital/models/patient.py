@@ -29,15 +29,12 @@ class HospitalPatient(models.Model):
         string="Tags" # Field label
     )
 
-    """
-    Compute the age of the patient based on their date of birth.
-    This method calculates the patient's age by comparing the current date
-    with the patient's date_of_birth. If the date_of_birth is not set, the age
-    is set to 0.
-    The computed age is stored in the 'age' field for each record.
-    Returns:
-        None
-    """
+    @api.model
+    # inherit create method to add custom logic during record creation
+    def create(self, vals):
+        print("Creating patient with values:", vals) # Debug print statement
+        return super(HospitalPatient, self).create(vals) # Call the super method to ensure the record is created
+
     @api.depends('date_of_birth') # lively update when date_of_birth changes
     def _compute_age(self):
         for rec in self:
