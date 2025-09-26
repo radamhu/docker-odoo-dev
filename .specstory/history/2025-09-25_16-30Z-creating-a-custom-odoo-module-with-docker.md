@@ -55,3 +55,325 @@ Then you can install the module through the Odoo interface by going to Apps → 
 
 ---
 
+_**User (2025-09-26 05:59Z)**_
+
+at developer machine, cant modify scaffolded addons file what was created inside docker instance:
+Failed to save '__manifest__.py': Insufficient permissions. Select 'Retry as Sudo' to retry as superuser.
+Why?
+
+---
+
+_**Assistant (copilot/claude-sonnet-4)**_
+
+This is a common Docker permission issue. The files created inside the Docker container are owned by the root user (or the container's user), but your host machine user doesn't have write permissions to them.
+
+Here are several solutions:
+
+## Solution 1: Fix ownership of existing files
+
+````bash
+# Change ownership of the scaffolded module to your user
+sudo chown -R $USER:$USER custom-addons/om_odoo_inheritance/
+
+# Or for the entire custom-addons directory
+sudo chown -R $USER:$USER custom-addons/
+````
+
+## Solution 2: Create the module directly on host machine
+
+Instead of scaffolding inside the container, create the module structure directly on your host machine:
+
+````bash
+# Create module structure manually
+mkdir -p custom-addons/om_odoo_inheritance/{models,views,security,controllers,data,static}
+
+# Create basic files
+touch custom-addons/om_odoo_inheritance/__init__.py
+touch custom-addons/om_odoo_inheritance/__manifest__.py
+touch custom-addons/om_odoo_inheritance/models/__init__.py
+touch custom-addons/om_odoo_inheritance/models/models.py
+````
+
+## Solution 3: Fix Docker user mapping (recommended)
+
+Update your `docker-compose.yml` to run the container with your user ID:
+
+````yaml
+services:
+  odoo-dev:
+    # ...existing code...
+    user: "${UID:-1000}:${GID:-1000}"
+    # ...existing code...
+````
+
+Then restart the container:
+
+````bash
+docker compose down
+docker compose up -d
+````
+
+## Solution 4: Use Docker with proper user context
+
+Run the scaffold command with your user ID:
+
+````bash
+# Get your user ID
+id -u
+
+# Run scaffold with your user ID (replace 1000 with your actual UID)
+docker exec -u 1000:1000 -it odoo-dev /usr/bin/odoo scaffold om_odoo_inheritance /mnt/extra-addons
+````
+
+The root cause is that Docker containers run as root by default, so any files created inside have root ownership. Solution 3 (fixing the Docker user mapping) is the most permanent fix for your development environment.
+
+---
+
+_**User (2025-09-26 06:07Z)**_
+
+  File "/usr/lib/python3/dist-packages/odoo/models.py", line 623, in _build_model
+    raise TypeError("Model %r does not exist in registry." % name)
+TypeError: Model 'sale.order' does not exist in registry.
+
+---
+
+_**Assistant (copilot/claude-sonnet-4)**_
+
+The error occurs because the `sale.order` model doesn't exist in your Odoo registry. This happens when the `sale` module (which defines the `sale.order` model) is not installed or available in your Odoo instance.
+
+## Solution: Add dependency to the `sale` module
+
+Update your module's `__manifest__.py` file to include the `sale` module as a dependency:
+
+````python
+{
+    'name': "om_odoo_inheritance",
+    'summary': """
+        Short (1 phrase/line) summary of the module's purpose, used as
+        subtitle on modules listing or apps.openerp.com""",
+    'description': """
+        Long description of module's purpose
+    """,
+    'author': "My Company",
+    'website': "http://www.yourcompany.com",
+    'category': 'Uncategorized',
+    'version': '0.1',
+    # Add 'sale' as a dependency
+    'depends': ['base', 'sale'],
+    'data': [
+        # 'security/ir.model.access.csv',
+        # 'views/views.xml',
+        # 'views/templates.xml',
+    ],
+    'demo': [
+        # 'demo/demo.xml',
+    ],
+    'installable': True,
+    'auto_install': False,
+}
+````
+
+## Steps to fix:
+
+1. **Update the manifest file** as shown above
+2. **Restart your Odoo container**:
+   ````bash
+   docker compose restart odoo-dev
+   ````
+3. **Update the app list** in Odoo:
+   - Go to Apps → Update Apps List
+4. **Install the sale module first** (if not already installed):
+   - Search for "Sales" and install it
+5. **Then install your custom module**:
+   - Search for "om_odoo_inheritance" and install it
+
+The `depends` field ensures that the `sale` module is loaded before your module, making the `sale.order` model available in the registry for inheritance.
+
+---
+
+_**User (2025-09-26 06:22Z)**_
+
+  File "/usr/lib/python3/dist-packages/odoo/models.py", line 623, in _build_model
+    raise TypeError("Model %r does not exist in registry." % name)
+TypeError: Model 'sale.order' does not exist in registry. - - -
+
+---
+
+_**Assistant (copilot/claude-sonnet-4)**_
+
+The issue is with your manifest configuration. You have conflicting settings that prevent proper module installation:
+
+## Fix the manifest file
+
+````python
+# -*- coding: utf-8 -*-
+{
+    'name': "om_odoo_inheritance",
+    'summary': """
+        Short (1 phrase/line) summary of the module's purpose, used as
+        subtitle on modules listing or apps.openerp.com""",
+    'description': """
+        Long description of module's purpose
+    """,
+    'author': "My Company",
+    'website': "http://www.yourcompany.com",
+    'category': 'Uncategorized',
+    'version': '0.1',
+    'depends': ['base', 'sale'],  # Add 'base' dependency and ensure 'sale' is included
+    'data': [
+    ],
+    'demo': [
+    ],
+    'application': False,  # Changed: This is NOT a standalone application
+    'auto_install': False,  # Changed: Should be False for manual installation
+    'installable': True,   # Added: Ensure module is installable
+    'license': 'LGPL-3',
+}
+````
+
+## Steps to resolve:
+
+1. **Update the manifest** as shown above
+2. **Restart Odoo container**:
+   ````bash
+   docker compose restart odoo-dev
+   ````
+3. **Update Apps List** in Odoo interface:
+   - Go to Apps → Update Apps List
+4. **Install Sale module first** (if not installed):
+   - Search for "Sales" and install it
+5. **Install your module**:
+   - Search for "om_odoo_inheritance" and install it
+
+## Key changes explained:
+
+- `'application': False` - Your module extends existing functionality, it's not a standalone app
+- `'auto_install': False` - Prevents automatic installation conflicts
+- `'depends': ['base', 'sale']` - Ensures both base and sale modules are loaded first
+- `'installable': True` - Explicitly marks the module as installable
+
+The error occurs because the sale module (which defines `sale.order`) must be installed before your inheritance module can extend it.
+
+---
+
+_**User (2025-09-26 06:25Z)**_
+
+  File "/usr/lib/python3/dist-packages/odoo/models.py", line 623, in _build_model
+    raise TypeError("Model %r does not exist in registry." % name)
+TypeError: Model 'sale.order' does not exist in registry.
+
+---
+
+_**Assistant (copilot/claude-sonnet-4)**_
+
+The error persists because the `sale` module is not installed in your Odoo instance. Let's fix this step by step:
+
+## Step 1: Check if Sale module is installed
+
+First, verify if the Sale module is available and installed:
+
+````bash
+# Check what modules are available in your Odoo instance
+docker exec -it odoo-dev /usr/bin/odoo -d odoo --list-db
+
+# Or check installed modules
+docker exec -it odoo-dev psql -U odoo -d odoo -c "SELECT name, state FROM ir_module_module WHERE name = 'sale';"
+````
+
+## Step 2: Install Sale module first
+
+You need to install the Sale module before your inheritance module can work:
+
+````bash
+# Install the sale module via command line
+docker exec -it odoo-dev /usr/bin/odoo -d odoo -i sale --stop-after-init
+
+# Then restart your container
+docker compose restart odoo-dev
+````
+
+## Step 3: Alternative - Use a simpler inheritance example
+
+If the Sale module is not available, try inheriting from a model that's always available:
+
+````python
+# -*- coding: utf-8 -*-
+
+from odoo import api, fields, models
+
+
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+    
+    # Add a custom field to partners
+    custom_field = fields.Char(string="Custom Field")
+
+# Comment out the sale.order inheritance for now
+# class SaleOrder(models.Model):
+#     _inherit = 'sale.order'
+````
+
+And update the import:
+
+````python
+# -*- coding: utf-8 -*-
+
+from . import sale_order  # This file now contains ResPartner inheritance
+````
+
+## Step 4: Update manifest dependencies
+
+````python
+# -*- coding: utf-8 -*-
+{
+    'name': "om_odoo_inheritance",
+    'summary': """
+        Short (1 phrase/line) summary of the module's purpose, used as
+        subtitle on modules listing or apps.openerp.com""",
+    'description': """
+        Long description of module's purpose
+    """,
+    'author': "My Company",
+    'website': "http://www.yourcompany.com",
+    'category': 'Uncategorized',
+    'version': '0.1',
+    'depends': ['base'],  # Remove 'sale' dependency for now
+    'data': [
+    ],
+    'demo': [
+    ],
+    'application': False,
+    'auto_install': False,
+    'installable': True,
+    'license': 'LGPL-3',
+}
+````
+
+This approach uses `res.partner` which is always available in any Odoo installation. Once you confirm your inheritance module works, you can then focus on getting the Sale module installed and switch back to `sale.order` inheritance.
+
+---
+
+_**User (2025-09-26 06:31Z)**_
+
+executing $ docker exec -it o15 /usr/bin/odoo -d odoo -i sale --stop-after-init, but cant find app icon in menu
+
+---
+
+_**Assistant (copilot/claude-sonnet-4)**_
+
+There are a few issues with your setup. Let me help you fix them:
+
+## Issue 1: Fix your manifest file
+
+Your `depends` field is incorrect - it should never be empty:
+
+````python
+# -*- coding: utf-8 -*-
+{
+    'name': "om_odoo_inheritance",
+    'summary': """
+        Short (1 phrase/line) summary of the module's purpose, used as
+        subtitle on modules listing or
+
+---
+

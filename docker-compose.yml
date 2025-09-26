@@ -15,7 +15,7 @@ services:
       - ./custom-addons:/mnt/custom-addons
       - o15-data:/var/lib/odoo
       - o15-sessions:/var/lib/odoo/sessions
-    entrypoint: /usr/bin/python3 -m debugpy --listen 0.0.0.0:8888 /usr/bin/odoo -c /etc/odoo/odoo.conf -d odoo -i base -u om_hospital
+    entrypoint: /usr/bin/python3 -m debugpy --listen 0.0.0.0:8888 /usr/bin/odoo -c /etc/odoo/odoo.conf -d odoo -i base -u om_hospital,,om_odoo_inheritance
     user: "root"
     deploy:
       resources:

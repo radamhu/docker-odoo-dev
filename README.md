@@ -191,18 +191,20 @@ This means that with just a small daily investment, you can cover the entire Odo
 - [x ] Enable hotkeys  
 - [x ] Work with One2many and Many2many fields  
 - [x ] Create and use transient models & wizards  
-- [ ] Load data from XML & CSV  
+- [x ] Load data from XML & CSV  
 - **Videos:** 44–66  
 - ⏱️ **Estimated Time:** ~4.5 hours  
 
 --- 
 
 ### **Module 8: Inheritance & ORM**
-- [ ] Create module with scaffold command
+- [x ] Create module with scaffold command
 ```bash
 docker exec -it o15 /usr/bin/odoo scaffold om_odoo_inheritance /mnt/custom-addons
+this was suck, gave a sale.order model not found error
+suggesting create new custom module and add the code there by manualy
 ```
-- [ ] Inherit models, fields, functions  
+- [x ] Inherit models, fields, functions (_inherit in py model , xpath in views) 
 - [ ] Override create/write/unlink methods  
 - [ ] Work with sequences, default get, name get  
 - [ ] Explore ORM methods (create, browse, search, etc.)  

@@ -1,0 +1,8 @@
+<!-- file: your_module/data/admin_sales_rights.xml -->
+<odoo>
+    <data noupdate="1">
+        <record id="base.user_admin" model="res.users">
+            <field name="groups_id" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+        </record>
+    </data>
+</odoo>
