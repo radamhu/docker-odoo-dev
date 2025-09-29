@@ -50,3 +50,8 @@ class HospitalPatient(models.Model):
                 rec.age = today.year - rec.date_of_birth.year
             else:
                 rec.age = 0
+                
+    def name_get(self):
+        # Override name_get to customize display name in many2one fields
+        # tuple of (id, display_name)
+        return [(record.id, "[%s] %s" % (record.ref, record.name)) for record in self] # Display ref along with name in many2one fields
