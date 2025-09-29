@@ -32,7 +32,7 @@ class HospitalPatient(models.Model):
     @api.model
     # inherit create method to add custom logic during record creation
     def create(self, vals):
-        print("Creating patient with values:", vals) # Debug print statement
+        vals['ref'] = self.env['ir.sequence'].next_by_code('hospital.patient') or 'New' # Generate a sequence for the ref field
         return super(HospitalPatient, self).create(vals) # Call the super method to ensure the record is created
 
     @api.depends('date_of_birth') # lively update when date_of_birth changes

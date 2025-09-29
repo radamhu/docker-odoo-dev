@@ -206,7 +206,7 @@ suggesting create new custom module and add the code there by manualy
 ```
 - [x ] Inherit models, fields, functions (_inherit in py model , xpath in views) 
 - [x ] Override create/write/unlink methods  
-- [ ] Work with sequences, default get, name get  
+- [x ] Work with sequences, default get, name get  
 - [ ] Explore ORM methods (create, browse, search, etc.)  
 - **Videos:** 67–75, 84–85, 98–100  
 - ⏱️ **Estimated Time:** ~5 hours  

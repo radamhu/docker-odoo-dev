@@ -18,6 +18,7 @@
         # 'data/admin_sales_rights.xml', # Initial data for admin sales rights
         'data/patient_tag_data.xml', # Initial data for patient tags
         'data/patient.tag.csv', # Initial data for patient tags
+        'data/sequence.xml', # Sequence data for patient reference numbers
         'wizard/cancel_appointment_view.xml', # Wizard views order is important here transient models first after security
         'views/menu.xml', # Patient views
         'views/patient_view.xml', # Doctor views
