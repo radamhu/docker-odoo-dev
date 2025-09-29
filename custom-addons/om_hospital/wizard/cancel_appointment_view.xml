@@ -10,6 +10,7 @@
                 <group>
                     <field name="appointment_id"/>
                     <field name="reason"/>
+                    <field name="date_cancelled"/>
                 </group>
                 <group>
                 </group>

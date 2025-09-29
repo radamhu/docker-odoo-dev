@@ -69,6 +69,9 @@ in docker-compose.yml
    - o15-sessions:/var/lib/odoo/sessions
    
    docker compose up -d
+   docker compose restart web
+   docker logs -f --tail 50 o15 2>&1 | ccze -m ansi
+   docker exec -e "TERM=xterm-256color" -it o15 odoo -c /etc/odoo/odoo.conf -d odoo -u om_hospital --stop-after-init
    ```
 
 **Add Your Addons**
