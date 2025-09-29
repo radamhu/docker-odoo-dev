@@ -35,6 +35,13 @@ class HospitalPatient(models.Model):
         vals['ref'] = self.env['ir.sequence'].next_by_code('hospital.patient') or 'New' # Generate a sequence for the ref field
         return super(HospitalPatient, self).create(vals) # Call the super method to ensure the record is created
 
+    # inherit write method to add custom logic during record update
+    def write(self, vals):
+        # print("Write method called with vals:", vals) # Debug print to check the values being written
+        if not self.ref and not vals.get('ref'): # If ref is not set in the existing record and not being updated
+            vals['ref'] = self.env['ir.sequence'].next_by_code('hospital.patient') or 'New' # Generate a sequence for the ref field if not already set
+        return super(HospitalPatient, self).write(vals) # Call the super method to ensure the record is updated
+    
     @api.depends('date_of_birth') # lively update when date_of_birth changes
     def _compute_age(self):
         for rec in self:
