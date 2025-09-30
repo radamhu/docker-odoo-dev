@@ -211,21 +211,24 @@ suggesting create new custom module and add the code there by manualy
 - [x ] Override create/write/unlink methods  
 - [x ] Work with sequences, default get, name get  
 - [ ] Explore ORM methods (create, browse, search, etc.)  
-- **Videos:** 67–75, 84–85, 98–100  
+- **Videos:** 67–75  
 - ⏱️ **Estimated Time:** ~5 hours  
 
 ---
 
 WEEK
-
 ### **Module 9: Advanced Features**
-- [ ] Apply domains on fields  
+- [ ] New Odoo playground model tutorials
+   76. Menu And SubMenu Without Specifying Parent In Odoo || Odoo Tips and Tricks || Odoo Advanced
+   77. Target Inline In Odoo || Inline Actions In Odoo || Target In Odoo Actions || Odoo Window Action
+   Odoo Environment | Odoo Self | self.env in Odoo || Odoo
 - [ ] Raise validation errors  
+- [ ] Apply domains on fields  
 - [ ] Add SQL & Python constraints  
 - [ ] Configure stored/unstored computed fields  
 - [ ] Set inverse functions  
 - [ ] Use ondelete policies & conditional fields  
-- **Videos:** 76–83, 86–96  
+- **Videos:** 76–83, 84–85, 86–96, 97, 98–100
 - ⏱️ **Estimated Time:** ~4 hours  
 
 ---
@@ -236,7 +239,7 @@ WEEK
 - [ ] Work with external API & XMLRPC  
 - [ ] Use Postman integration  
 - [ ] Implement WhatsApp connector  
-- **Videos:** 97, 101–115  
+- **Videos:** 101–115  
 - ⏱️ **Estimated Time:** ~5 hours  
 
 ---
@@ -244,6 +247,12 @@ WEEK
 DISMISSED
 
 ### **Module 11: Deployment & Debugging**
+78 How To Run Odoo From Terminal | Odoo Command Line Options | Odoo CLI | How To Run Odoo Using Command
+79 How To Generate Odoo Configuration File From Terminal || Odoo Command Line Interface || Odoo CLI
+80 How To Install Module From Terminal In Odoo || Odoo Command Line Interface || Odoo CLI
+81 Error no 98 Address Already In Use Error Odoo | Reason & Solution | Fix Address already In Use Error
+82 How To Upgrade A Module From Odoo CLI || Upgrade Module From Terminal In Odoo || Odoo Command Line
+83 How To Create Database From Terminal Odoo CLI || Odoo Command Line Interface || Odoo CLI Parameters
 - [ ] Run Odoo from CLI  
 - [ ] Configure Odoo server and workers  
 - [ ] Upgrade modules from CLI  
