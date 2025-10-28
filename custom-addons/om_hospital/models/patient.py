@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from datetime import date
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class HospitalPatient(models.Model):
@@ -28,6 +29,15 @@ class HospitalPatient(models.Model):
         "patient.tag", # Related model
         string="Tags" # Field label
     )
+    appointment_count = fields.Integer( # Computed field to count appointments
+        string="Appointment Count", # Field label
+    )
+    
+    @api.constrains('date_of_birth')  # SQL constraint to ensure date_of_birth is not in the future
+    def _check_date_of_birth(self):
+        for rec in self:
+            if rec.date_of_birth and rec.date_of_birth > fields.Date.today():
+                raise ValidationError(_("Date of Birth cannot be in the future.")) # Raise validation error if date_of_birth is in the future
 
     @api.model
     # inherit create method to add custom logic during record creation
