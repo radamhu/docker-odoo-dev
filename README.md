@@ -210,7 +210,12 @@ suggesting create new custom module and add the code there by manualy
 - [x ] Inherit models, fields, functions (_inherit in py model , xpath in views) 
 - [x ] Override create/write/unlink methods  
 - [x ] Work with sequences, default get, name get  
-- [ ] Explore ORM methods (create, browse, search, etc.)  
+- [x] Explore ORM methods (create, browse, search, etc.)  
+   - [x ] How To Inherit Model In Odoo || Odoo Inheritance || Odoo 15 Tutorials || Odoo 15 Development	6:08	12. Inheritance & Method Overrides	70
+   - [x ] How To Inherit And Add Field To A Model In Odoo || Odoo Inheritance || Odoo 15 Tutorials	21:05	12. Inheritance & Method Overrides	71
+   - [x ] How To Inherit A Function In Odoo || Odoo Inheritance || Odoo 15 Tutorials || Odoo 15 Development	8:33	12. Inheritance & Method Overrides	72
+   - [x ] How To Override Create Method In Odoo || Odoo 15 Tutorial || Odoo ORM Methods	8:57	12. Inheritance & Method Overrides	73
+   - [x ] How To Override Write Method In Odoo || Inherit Write Function In Odoo || Odoo ORM Methods	9:13	12. Inheritance & Method Overrides	75
 - **Videos:** 67–75  
 - ⏱️ **Estimated Time:** ~5 hours  
 
@@ -218,16 +223,29 @@ suggesting create new custom module and add the code there by manualy
 
 WEEK
 ### **Module 9: Advanced Features**
-- [ ] New Odoo playground model tutorials
-   76. Menu And SubMenu Without Specifying Parent In Odoo || Odoo Tips and Tricks || Odoo Advanced
-   77. Target Inline In Odoo || Inline Actions In Odoo || Target In Odoo Actions || Odoo Window Action
-   Odoo Environment | Odoo Self | self.env in Odoo || Odoo
+- [x ] New Odoo playground model tutorials
+   - [x ] 76. Menu And SubMenu Without Specifying Parent In Odoo || Odoo Tips and Tricks || Odoo Advanced
+   - [x ] 77. Target Inline In Odoo || Inline Actions In Odoo || Target In Odoo Actions || Odoo Window Action
+- [ ] Odoo Environment | Odoo Self | self.env in Odoo || Odoo
 - [ ] Raise validation errors  
+   - How To Raise Validation Error In Odoo || Odoo Validation || Validation Error In Odoo,6:25,"9. Validation, Constraints & Domains",89
 - [ ] Apply domains on fields  
+   - Apply Domain For Fields In Odoo || Odoo Domain Concept || Odoo Field Domain || Odoo 15 Tutorials,13:35,"9. Validation, Constraints & Domains",90
 - [ ] Add SQL & Python constraints  
+   - Sql Constraints In Odoo || Constrains In Odoo || Odoo 15 Field Validations,15:06,"9. Validation, Constraints & Domains",91
+   - Python Constrains In Odoo || Constrains Decorator In Odoo || Model Constrains In Odoo,7:15,"9. Validation, Constraints & Domains",92
 - [ ] Configure stored/unstored computed fields  
+   - Stored Compute Field In Odoo And Its Dependency || Re computation Of Stored Compute Field,12:53,17. Misc & Unsorted,95
+   - Searchable Non Stored Compute Field In Odoo | How To Define Search Function For Field In Odoo,14:22,6. Fields: Basics & Relational,109
 - [ ] Set inverse functions  
+   - How To Set Inverse Function For Computed Field In Odoo || Editable Compute Field In Odoo,12:26,6. Fields: Basics & Relational,108
 - [ ] Use ondelete policies & conditional fields  
+   - Ondelete Policy In Odoo | Ondelete Restrict and Ondelete Cascade In Odoo | Odoo Ondelete Policy,7:57,"9. Validation, Constraints & Domains",97
+   - How To Hide Fields Based On Conditions In Odoo || Make Field Invisible Based On Other Fields,10:33,"9. Validation, Constraints & Domains",98
+   - How To Make Field Readonly Based On Condition In Odoo || Conditional Readonly Fields In Odoo,5:48,"9. Validation, Constraints & Domains",99
+   - How To Make Field Required Based On Conditions In Odoo || Conditional Required Fields In Odoo,8:01,"9. Validation, Constraints & Domains",100
+   - Label Attribute In Odoo | Class oe_edit_only |  Label For Fields | Edit Only Class In Odoo,4:17,"9. Validation, Constraints & Domains",101
+   - Ondelete Decorator In Odoo || Execute Codes On Deleting a Record In Odoo || Decorators in Odoo,5:27,"9. Validation, Constraints & Domains",104
 - **Videos:** 76–83, 84–85, 86–96, 97, 98–100
 - ⏱️ **Estimated Time:** ~4 hours  
 
@@ -235,8 +253,23 @@ WEEK
 
 ### **Module 10: Reporting & Integrations**
 - [ ] Generate QWeb, PDF, and Excel reports  
+   - [ ] Customize  PDF Reports From User Interface In Odoo	16:25	13. Reporting (QWeb, PDF/Excel)	138
+   - [ ] How To Add New Field To Sale Report Model In Odoo || Inherit Database View In Odoo	11:54	13. Reporting (QWeb, PDF/Excel)	174
+   - [ ] Create PDF And Excel Reports In Odoo 15 || Odoo 15 Excel Reporting | Odoo 15 PDF Reports	21:20	13. Reporting (QWeb, PDF/Excel)	182
+   - [ ] How To Add Line Number In Odoo Qweb Report | Line Number Inside For Loop	9:03	13. Reporting (QWeb, PDF/Excel)	184
+   - [ ] How To Add Barcode And QR Code In Odoo PDF Reports	10:50	13. Reporting (QWeb, PDF/Excel)	185
 - [ ] Add line numbers, barcodes, and QR codes  
 - [ ] Work with external API & XMLRPC  
+   - [ ] Odoo Whatsapp Integration || Odoo Whatsapp Connector || Redirect To Whatsapp From Odoo	17:11	14. External APIs & Integrations	137
+   - [ ] How To Pass New Field Value From Sale Order To Invoice In Odoo	10:06	14. External APIs & Integrations	149
+   - [ ] How To Get Code From Postman Application || Postman Code Generator	4:25	14. External APIs & Integrations	158
+   - [ ] Odoo External API | Authentication From External Application | Odoo External API Logging in	11:19	14. External APIs & Integrations	175
+   - [ ] Odoo External API: Search And Read From Odoo Database	14:02	14. External APIs & Integrations	176
+   - [ ] Odoo XMLRPC: Search Read Method To Read From Database	5:06	14. External APIs & Integrations	177
+   - [ ] Create Record In Odoo From External Applications | Odoo External API	5:47	14. External APIs & Integrations	178
+   - [ ] Write Into Odoo Database From External Application || Odoo External API	6:45	14. External APIs & Integrations	179
+   - [ ] How To Delete Records From Odoo Database Using External API	5:18	14. External APIs & Integrations	180
+
 - [ ] Use Postman integration  
 - [ ] Implement WhatsApp connector  
 - **Videos:** 101–115  
