@@ -15,7 +15,9 @@ class CancelAppointmentWizard(models.TransientModel):
         res['date_cancelled'] = datetime.datetime.now()
         return res
 
-    appointment_id = fields.Many2one('hospital.appointment', string='Appointment', required=True)
+    appointment_id = fields.Many2one('hospital.appointment', string='Appointment')
+                                    # Apply domain to show only draft and low priority appointments, or you can do it in view xml
+                                    #  domain="[('state', '=', 'draft'), ('priority', 'in', ('0', '1', False))]", required=True)
     reason = fields.Text(string='Reason for Cancellation', default='No reason provided')
     date_cancelled = fields.Datetime(string='Cancellation Date')
     
