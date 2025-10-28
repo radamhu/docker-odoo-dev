@@ -427,6 +427,8 @@ Website builder overhaul (new asset bundling, drag-drop, integration with backen
 
 ## 🎯 Odoo Developer Interview Questions
 
+Expected: with related solutions
+
 ### � Learning Path Mapping
 
 This section maps interview questions to the learning modules above. Use this to prepare for interviews or assess candidates based on their practical knowledge.
@@ -443,52 +445,554 @@ This section maps interview questions to the learning modules above. Use this to
 *Foundation topics covered in Modules 1-3*
 
 #### Module 1: Setup & Module Structure
+
 1. **What is Odoo and what are its main modules?** *(Module 1)*
-   - Expected: Understanding of ERP, mention of Sales, CRM, Inventory, Accounting
    
+   ![Odoo Main Dashboard](docs/interview-questions/junior/q01-odoo-dashboard.png)
+   <!-- TODO: Screenshot of Odoo main dashboard showing Apps menu with Sales, CRM, Inventory, Accounting modules -->
+   
+   **Expected Answer:** 
+   - Odoo is an open-source ERP (Enterprise Resource Planning) system
+   - Main modules include: Sales, CRM, Inventory, Accounting, Manufacturing, HR, Website, etc.
+   - Each module handles specific business functions and can be installed/customized independently
+
+---
+
 2. **Explain the structure of an Odoo module.** *(Module 1)*
-   - Expected: `__manifest__.py`, models, views, security folders, data files
+   
+   ![Module Structure](docs/interview-questions/junior/q02-module-structure.png)
+   <!-- TODO: Screenshot of VS Code showing om_hospital folder structure -->
+   
+   **Expected Answer:** `__manifest__.py`, models, views, security folders, data files
+   
+   **Actual `om_hospital` Module Structure:**
+   ```
+   om_hospital/
+   ├── __init__.py                    # Python package initializer
+   ├── __manifest__.py                # Module metadata and configuration
+   ├── models/                        # Business logic (Python models)
+   │   ├── __init__.py
+   │   ├── patient.py
+   │   ├── appointment.py
+   │   └── patient_tag.py
+   ├── views/                         # UI definitions (XML)
+   │   ├── menu.xml
+   │   ├── patient_view.xml
+   │   ├── appointment_view.xml
+   │   └── patient_tag_view.xml
+   ├── security/                      # Access control
+   │   └── ir.model.access.csv
+   ├── data/                          # Initial/demo data
+   │   ├── sequence.xml
+   │   └── patient_tag_data.xml
+   ├── wizard/                        # Transient models
+   │   └── cancel_appointment.py
+   └── static/                        # Assets (images, CSS, JS)
+       └── description/
+           └── icon.png
+   ```
+
+---
 
 3. **What is the purpose of `__manifest__.py`?** *(Module 1)*
-   - Expected: Module metadata, dependencies, data files to load, version info
+   
+   ![Manifest File](docs/interview-questions/junior/q03-manifest-file.png)
+   <!-- TODO: Screenshot of VS Code showing __manifest__.py content -->
+   
+   **Expected Answer:** Module metadata, dependencies, data files to load, version info
+   
+   **Code Example from `om_hospital/__manifest__.py`:**
+   ```python
+   {
+       'name': 'Hospital Management',           # Module display name
+       'version': '1.0.0',                      # Version number
+       'category': 'Healthcare',                # App category
+       'author': 'Adam informatika',            # Author
+       'sequence': -100,                        # Menu order
+       'summary': 'Manage hospital operations and patient records',
+       'depends': [
+           'mail',      # For Chatter functionality
+           'product'    # For product management
+       ],
+       'data': [
+           'security/ir.model.access.csv',      # Load security first
+           'data/sequence.xml',                 # Then data files
+           'wizard/cancel_appointment_view.xml',
+           'views/menu.xml',                    # Then views
+           'views/patient_view.xml',
+           'views/appointment_view.xml',
+       ],
+       'application': True,                     # Standalone application
+       'auto_install': False,                   # Manual installation
+       'license': 'LGPL-3',
+   }
+   ```
+
+---
 
 4. **How do you add a menu item in Odoo?** *(Module 1)*
-   - Expected: Define `<menuitem>` in XML with action, parent, sequence
+   
+   ![Menu in Odoo UI](docs/interview-questions/junior/q04-menu-ui.png)
+   <!-- TODO: Screenshot of Odoo showing Hospital menu with submenus -->
+   
+   **Expected Answer:** Define `<menuitem>` in XML with action, parent, sequence
+   
+   **Code Example from `om_hospital/views/menu.xml`:**
+   ```xml
+   <!-- Main Menu -->
+   <menuitem id="menu_hospital_root"
+             name="Hospital"
+             web_icon="om_hospital,static/description/icon.png"
+             sequence="0"/>
+
+   <!-- Sub Menu (Parent) -->
+   <menuitem id="menu_patient_master"
+             name="Patient Details"
+             parent="menu_hospital_root"
+             sequence="0"/>
+
+   <!-- Sub Menu with Action -->
+   <menuitem id="menu_patient"
+             name="Patients"
+             action="action_hospital_patient"
+             parent="menu_patient_master"
+             sequence="0"/>
+   ```
+   
+   **Key Attributes:**
+   - `id`: Unique identifier
+   - `name`: Display text
+   - `parent`: Parent menu (for hierarchical structure)
+   - `action`: Links to window action
+   - `sequence`: Display order (lower = earlier)
+   - `web_icon`: Custom icon path
+
+
+---
 
 #### Module 2: Models & Security
+
 5. **How do you create a new field in an Odoo model?** *(Module 2)*
-   - Expected: Use Fields class (Char, Integer, Many2one, etc.) in models
+   
+   ![Patient Form View with Fields](docs/interview-questions/junior/q05-patient-form.png)
+   <!-- TODO: Screenshot of patient form showing name, age, gender, date_of_birth fields -->
+   
+   **Expected Answer:** Use Fields class (Char, Integer, Many2one, etc.) in models
+   
+   **Code Example from `om_hospital/models/patient.py`:**
+   ```python
+   from odoo import api, fields, models
+   
+   class HospitalPatient(models.Model):
+       _name = "hospital.patient"
+       _description = "Hospital Patient"
+       
+       # Different field types:
+       name = fields.Char(string='Patient Name', tracking=True)
+       date_of_birth = fields.Date(string='Date of Birth')
+       ref = fields.Char(string='Reference')
+       age = fields.Integer(string='Age', compute='_compute_age', 
+                           tracking=True, store=True)
+       gender = fields.Selection([
+           ('male', 'Male'),
+           ('female', 'Female'),
+           ('other', 'Other'),
+       ], string='Gender', required=True, tracking=True, default='female')
+       active = fields.Boolean(string='Active', default=True, tracking=True)
+       image = fields.Image(string="Patient Image")
+   ```
+   
+   **Field Syntax:**
+   - `field_name = fields.FieldType(parameters)`
+   - Common parameters: `string`, `required`, `default`, `tracking`, `readonly`
+
+---
 
 6. **What are the basic field types in Odoo?** *(Module 2)*
-   - Expected: Char, Text, Integer, Float, Boolean, Date, Datetime, Selection
+   
+   ![Field Types in Code](docs/interview-questions/junior/q06-field-types.png)
+   <!-- TODO: Screenshot highlighting different field types in patient.py -->
+   
+   **Expected Answer:** Char, Text, Integer, Float, Boolean, Date, Datetime, Selection
+   
+   **Field Types Demonstrated in `patient.py`:**
+   ```python
+   # Basic Types
+   name = fields.Char(string='Patient Name')              # Text (short)
+   ref = fields.Char(string='Reference')                  # Text (short)
+   age = fields.Integer(string='Age')                     # Whole number
+   date_of_birth = fields.Date(string='Date of Birth')    # Date only
+   active = fields.Boolean(string='Active', default=True) # True/False
+   
+   # Selection (Dropdown)
+   gender = fields.Selection([
+       ('male', 'Male'),
+       ('female', 'Female'),
+       ('other', 'Other'),
+   ], string='Gender', required=True)
+   
+   # Binary/Image
+   image = fields.Image(string="Patient Image")           # Image field
+   
+   # Relational Fields (covered in Module 5)
+   appointment_id = fields.Many2one("hospital.appointment", string="Appointments")
+   tag_ids = fields.Many2many("patient.tag", string="Tags")
+   ```
+
+---
 
 7. **What is `ir.model.access.csv` used for?** *(Module 2)*
-   - Expected: Access control list - defines which groups can read/write/create/delete records
+   
+   ![Access Rights CSV](docs/interview-questions/junior/q07-access-rights.png)
+   <!-- TODO: Screenshot of ir.model.access.csv file in VS Code -->
+   
+   **Expected Answer:** Access control list - defines which groups can read/write/create/delete records
+   
+   **Code Example from `om_hospital/security/ir.model.access.csv`:**
+   ```csv
+   id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+   access_hospital_patient,access_hospital_patient,om_hospital.model_hospital_patient,base.group_user,1,1,1,1
+   access_hospital_appointment,access_hospital_appointment,om_hospital.model_hospital_appointment,base.group_user,1,1,1,1
+   ```
+   
+   **Column Explanation:**
+   - `id`: Unique identifier
+   - `name`: Human-readable name
+   - `model_id:id`: Model technical name (prefixed with module name)
+   - `group_id:id`: User group with access (`base.group_user` = internal users)
+   - `perm_read`: Can view records (1=yes, 0=no)
+   - `perm_write`: Can edit records
+   - `perm_create`: Can create records
+   - `perm_unlink`: Can delete records
+
+---
 
 8. **Write a simple model with name, description, and date fields.** *(Module 2)*
-   - Expected: Class inheriting `models.Model`, proper field definitions
+   
+   ![Simple Model Example](docs/interview-questions/junior/q08-simple-model.png)
+   <!-- TODO: Screenshot of a simple model definition -->
+   
+   **Expected Answer:** Class inheriting `models.Model`, proper field definitions
+   
+   **Example - Simplified Patient Model:**
+   ```python
+   from odoo import models, fields
+   
+   class HospitalPatient(models.Model):
+       _name = "hospital.patient"              # Technical model name (DB table)
+       _description = "Hospital Patient"       # Human-readable description
+       
+       # Basic fields
+       name = fields.Char(string='Name', required=True)
+       description = fields.Text(string='Description')
+       date_of_birth = fields.Date(string='Date of Birth')
+   ```
+   
+   **Key Components:**
+   - Inherit from `models.Model`
+   - `_name`: Defines database table name (dots become underscores)
+   - `_description`: Shows in logs and technical views
+   - Field definitions with appropriate types
+
+
+---
 
 #### Module 3: Views & Basic Operations
+
 9. **Explain the difference between `tree` and `form` views.** *(Module 3)*
-   - Expected: Tree = list view, Form = detailed single record view
+   
+   ![Tree View - Patient List](docs/interview-questions/junior/q09-tree-view.png)
+   <!-- TODO: Screenshot of patient tree view showing list of multiple patients -->
+   
+   ![Form View - Patient Details](docs/interview-questions/junior/q09-form-view.png)
+   <!-- TODO: Screenshot of patient form view showing single patient details -->
+   
+   **Expected Answer:** Tree = list view, Form = detailed single record view
+   
+   **Tree View (List) - `patient_view.xml`:**
+   ```xml
+   <record id="view_hospital_patient_tree" model="ir.ui.view">
+       <field name="name">hospital.patient.tree</field>
+       <field name="model">hospital.patient</field>
+       <field name="arch" type="xml">
+           <tree>
+               <field name="name"/>
+               <field name="age"/>
+               <field name="gender"/>
+               <field name="ref"/>
+               <field name="tag_ids" widget="many2many_tags"/>
+           </tree>
+       </field>
+   </record>
+   ```
+   
+   **Form View (Detail) - `patient_view.xml`:**
+   ```xml
+   <record id="view_hospital_patient_form" model="ir.ui.view">
+       <field name="name">hospital.patient.form</field>
+       <field name="model">hospital.patient</field>
+       <field name="arch" type="xml">
+           <form>
+               <sheet>
+                   <group>
+                       <group>
+                           <field name="image" widget="image"/>
+                           <field name="name"/>
+                           <field name="date_of_birth"/>
+                           <field name="age"/>
+                       </group>
+                       <group>
+                           <field name="ref"/>
+                           <field name="gender"/>
+                           <field name="tag_ids" widget="many2many_tags"/>
+                       </group>
+                   </group>
+               </sheet>
+           </form>
+       </field>
+   </record>
+   ```
+   
+   **Key Differences:**
+   - **Tree**: Compact, shows multiple records, columns, sortable
+   - **Form**: Detailed, shows single record, grouped fields, full editing
+
+---
 
 10. **What is the difference between `active=True` and `active=False` in records?** *(Module 3)*
-    - Expected: Archiving mechanism - inactive records are hidden by default
+    
+    ![Archive Button in UI](docs/interview-questions/junior/q10-archive-button.png)
+    <!-- TODO: Screenshot showing archive/unarchive action in patient form -->
+    
+    ![Archived Filter](docs/interview-questions/junior/q10-archived-filter.png)
+    <!-- TODO: Screenshot of search view with "Archived" filter -->
+    
+    **Expected Answer:** Archiving mechanism - inactive records are hidden by default
+    
+    **Code Implementation in `patient.py`:**
+    ```python
+    active = fields.Boolean(string='Active', default=True, tracking=True)
+    ```
+    
+    **Search View Filter in `patient_view.xml`:**
+    ```xml
+    <filter name="filter_archived" string="Archived" 
+            domain="[('active', '=', False)]"/>
+    ```
+    
+    **Behavior:**
+    - `active=True`: Record is visible in default views
+    - `active=False`: Record is archived (soft delete), hidden unless explicitly filtered
+    - Odoo automatically adds Archive/Unarchive actions to form views
+    - Useful for maintaining historical data without cluttering active lists
+
+---
 
 11. **How do you set a default value for a field?** *(Module 3)*
-    - Expected: Use `default=` parameter or `default_get()` method
+    
+    ![Default Gender Field](docs/interview-questions/junior/q11-default-value.png)
+    <!-- TODO: Screenshot of new patient form showing gender defaulting to "Female" -->
+    
+    **Expected Answer:** Use `default=` parameter or `default_get()` method
+    
+    **Method 1: Static Default in Field Definition:**
+    ```python
+    # From patient.py
+    gender = fields.Selection([
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other'),
+    ], string='Gender', required=True, default='female')  # Default value
+    
+    active = fields.Boolean(string='Active', default=True)
+    ```
+    
+    **Method 2: Dynamic Default with `default_get()` method:**
+    ```python
+    @api.model
+    def default_get(self, fields_list):
+        res = super(HospitalPatient, self).default_get(fields_list)
+        res['gender'] = 'female'  # Set dynamic default
+        return res
+    ```
+    
+    **Method 3: Context in Action (view level):**
+    ```xml
+    <field name="context">{'default_gender': 'female'}</field>
+    ```
+
+---
 
 12. **What is a domain in Odoo? Give examples.** *(Module 3)*
-    - Expected: Filter criteria `[('field', 'operator', 'value')]`
+    
+    ![Domain Filter in Search View](docs/interview-questions/junior/q12-domain-filter.png)
+    <!-- TODO: Screenshot showing Male/Female filter buttons in patient search -->
+    
+    **Expected Answer:** Filter criteria `[('field', 'operator', 'value')]`
+    
+    **Code Examples from `patient_view.xml`:**
+    ```xml
+    <!-- Filter for Male patients -->
+    <filter name="filter_male" string="Male" 
+            domain="[('gender', '=', 'male')]"/>
+    
+    <!-- Filter for Female patients -->
+    <filter name="filter_female" string="Female" 
+            domain="[('gender', '=', 'female')]"/>
+    
+    <!-- Filter for Archived records -->
+    <filter name="filter_archived" string="Archived" 
+            domain="[('active', '=', False)]"/>
+    ```
+    
+    **Domain Syntax:**
+    ```python
+    # Basic operators
+    [('field_name', '=', 'value')]        # Equal
+    [('field_name', '!=', 'value')]       # Not equal
+    [('field_name', '>', 10)]             # Greater than
+    [('field_name', '<=', 18)]            # Less than or equal
+    [('field_name', 'in', [1, 2, 3])]     # In list
+    [('field_name', 'like', 'John')]      # Contains (case-sensitive)
+    [('field_name', 'ilike', 'john')]     # Contains (case-insensitive)
+    
+    # Logical operators
+    ['|', ('age', '<', 18), ('age', '>', 65)]  # OR (kids OR seniors)
+    [('age', '>=', 18), ('age', '<=', 65)]     # AND (adults)
+    ['!', ('active', '=', False)]              # NOT (active records)
+    ```
+
+---
 
 13. **How would you make a field required?** *(Module 3)*
-    - Expected: `required=True` parameter
+    
+    ![Required Field Validation](docs/interview-questions/junior/q13-required-field.png)
+    <!-- TODO: Screenshot showing validation error when trying to save without required field -->
+    
+    **Expected Answer:** `required=True` parameter
+    
+    **Code Example from `patient.py`:**
+    ```python
+    gender = fields.Selection([
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other'),
+    ], string='Gender', required=True, tracking=True, default='female')
+    ```
+    
+    **Behavior:**
+    - Field shows with bold label and red asterisk (*) in UI
+    - Form cannot be saved without filling the required field
+    - Validation error appears if user tries to save empty required field
+    
+    **Conditional Required (in view):**
+    ```xml
+    <field name="email" attrs="{'required': [('has_email', '=', True)]}"/>
+    ```
+
+---
 
 14. **How do you add filters and group by options in search views?** *(Module 3)*
-    - Expected: `<filter>` tags in search view with domain or context for grouping
+    
+    ![Search Filters and Group By](docs/interview-questions/junior/q14-filters-groupby.png)
+    <!-- TODO: Screenshot of search view showing filters dropdown and Group By options -->
+    
+    **Expected Answer:** `<filter>` tags in search view with domain or context for grouping
+    
+    **Code Example from `patient_view.xml`:**
+    ```xml
+    <record id="view_hospital_patient_search" model="ir.ui.view">
+        <field name="name">hospital.patient.search</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- Search by field -->
+                <field name="name" filter_domain="['|', ('name', 'ilike', self), 
+                                                   ('ref', 'ilike', self)]"/>
+                <field name="age"/>
+                <field name="gender"/>
+                
+                <!-- Filter buttons (uses domain) -->
+                <filter name="filter_male" string="Male" 
+                        domain="[('gender', '=', 'male')]"/>
+                <filter name="filter_female" string="Female" 
+                        domain="[('gender', '=', 'female')]"/>
+                
+                <separator/>
+                <filter name="filter_archived" string="Archived" 
+                        domain="[('active', '=', False)]"/>
+                
+                <!-- Group By options (uses context) -->
+                <group expand="0" string="Group By">
+                    <filter name="group_by_gender" string="Gender" 
+                            context="{'group_by': 'gender'}"/>
+                </group>
+                
+                <!-- Search Panel (left sidebar) -->
+                <searchpanel>
+                    <field name="gender" string="Gender" icon="fa-users" 
+                           select="multi" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+    ```
+    
+    **Key Elements:**
+    - `<filter>`: Creates filter button with domain or group by
+    - `domain`: Filters records based on criteria
+    - `context={'group_by': 'field'}`: Groups records by field
+    - `<searchpanel>`: Left sidebar for quick filtering
+
+---
 
 15. **What does context do when opening a view?** *(Module 3)*
-    - Expected: Pass default values, hide/show fields, activate filters
+    
+    ![Context in Action](docs/interview-questions/junior/q15-context-action.png)
+    <!-- TODO: Screenshot showing patient list with Male filter pre-activated -->
+    
+    **Expected Answer:** Pass default values, hide/show fields, activate filters
+    
+    **Code Example from `patient_view.xml`:**
+    ```xml
+    <record id="action_hospital_patient" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">tree,form</field>
+        
+        <!-- Context with default filters activated -->
+        <field name="context">{
+            'search_default_filter_male': 1,      # Activate Male filter
+            'search_default_group_by_gender': 1   # Activate Group By Gender
+        }</field>
+    </record>
+    ```
+    
+    **Common Context Uses:**
+    ```python
+    # Set default field values
+    {'default_gender': 'female', 'default_active': True}
+    
+    # Activate search filters automatically
+    {'search_default_filter_name': 1}
+    
+    # Hide/show fields dynamically
+    {'hide_field_name': True}
+    
+    # Pass custom data
+    {'from_patient_view': True, 'patient_id': 123}
+    ```
+    
+    **Accessing Context in Python:**
+    ```python
+    def some_method(self):
+        gender = self.env.context.get('default_gender')
+        if self.env.context.get('from_patient_view'):
+            # Custom logic
+            pass
+    ```
+
+---
 
 ---
 
@@ -496,52 +1000,1071 @@ This section maps interview questions to the learning modules above. Use this to
 *Advanced topics covered in Modules 4-8*
 
 #### Module 4: Communication & Tracking
+
 16. **How do you add tracking to a field (chatter)?** *(Module 4)*
-    - Expected: Inherit `mail.thread`, add `tracking=True` to field
+    
+    ![Field Tracking in Chatter](docs/interview-questions/mid/q16-field-tracking.png)
+    <!-- TODO: Screenshot of chatter showing "Gender changed from Male to Female" message -->
+    
+    **Expected Answer:** Inherit `mail.thread`, add `tracking=True` to field
+    
+    **Code Example from `patient.py`:**
+    ```python
+    from odoo import api, fields, models
+    
+    class HospitalPatient(models.Model):
+        _name = "hospital.patient"
+        _description = "Hospital Patient"
+        _inherit = ['mail.thread', 'mail.activity.mixin']  # Enable chatter
+        
+        # Fields with tracking
+        name = fields.Char(string='Patient Name', tracking=True)
+        age = fields.Integer(string='Age', tracking=True)
+        gender = fields.Selection([
+            ('male', 'Male'),
+            ('female', 'Female'),
+            ('other', 'Other'),
+        ], string='Gender', required=True, tracking=True)
+        active = fields.Boolean(string='Active', default=True, tracking=True)
+    ```
+    
+    **Chatter in Form View (`patient_view.xml`):**
+    ```xml
+    <form>
+        <sheet>
+            <!-- Form content -->
+        </sheet>
+        
+        <!-- Chatter widget at bottom -->
+        <div class="oe_chatter">
+            <field name="message_follower_ids"/>
+            <field name="activity_ids"/>
+            <field name="message_ids"/>
+        </div>
+    </form>
+    ```
+    
+    **Benefits:**
+    - Automatic audit trail for field changes
+    - Displays who changed what and when
+    - Users can follow records and receive notifications
+    - Adds activities (tasks, calls, meetings)
+
+---
 
 17. **What is the purpose of the search panel?** *(Module 4)*
-    - Expected: Quick filtering sidebar for categories/tags, improves UX
+    
+    ![Search Panel in Patient View](docs/interview-questions/mid/q17-search-panel.png)
+    <!-- TODO: Screenshot showing left sidebar with Gender filter (Male/Female/Other) -->
+    
+    **Expected Answer:** Quick filtering sidebar for categories/tags, improves UX
+    
+    **Code Example from `patient_view.xml`:**
+    ```xml
+    <record id="view_hospital_patient_search" model="ir.ui.view">
+        <field name="name">hospital.patient.search</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="age"/>
+                <field name="gender"/>
+                
+                <!-- Search Panel (Left Sidebar) -->
+                <searchpanel>
+                    <field name="gender" 
+                           string="Gender" 
+                           icon="fa-users" 
+                           select="multi" 
+                           enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+    ```
+    
+    **Key Features:**
+    - **`select="multi"`**: Allows multiple selection (checkboxes)
+    - **`select="one"`**: Radio buttons (single selection)
+    - **`enable_counters="1"`**: Shows record count per category
+    - **`icon`**: FontAwesome icon for visual appeal
+    
+    **Use Cases:**
+    - Filter products by category
+    - Filter patients by gender/age group
+    - Filter tickets by priority/stage
+    - Better UX than traditional filter dropdowns
+
+---
 
 18. **How do you enable chatter (mail thread) in a model?** *(Module 4)*
-    - Expected: Inherit `mail.thread`, `mail.activity.mixin`, add to view
+    
+    ![Full Chatter Implementation](docs/interview-questions/mid/q18-chatter-full.png)
+    <!-- TODO: Screenshot showing chatter with messages, followers, and activities -->
+    
+    **Expected Answer:** Inherit `mail.thread`, `mail.activity.mixin`, add to view
+    
+    **Complete Implementation:**
+    
+    **Step 1: Model Inheritance (`patient.py`):**
+    ```python
+    from odoo import api, fields, models
+    
+    class HospitalPatient(models.Model):
+        _name = "hospital.patient"
+        _description = "Hospital Patient"
+        
+        # Inherit mail mixins for full chatter functionality
+        _inherit = ['mail.thread', 'mail.activity.mixin']
+        
+        name = fields.Char(string='Patient Name', tracking=True)
+        gender = fields.Selection([
+            ('male', 'Male'),
+            ('female', 'Female'),
+        ], string='Gender', tracking=True)
+    ```
+    
+    **Step 2: Add to Manifest (`__manifest__.py`):**
+    ```python
+    {
+        'name': 'Hospital Management',
+        'depends': [
+            'mail',      # Required for chatter
+        ],
+        # ... rest of manifest
+    }
+    ```
+    
+    **Step 3: Add Chatter to Form View (`patient_view.xml`):**
+    ```xml
+    <record id="view_hospital_patient_form" model="ir.ui.view">
+        <field name="name">hospital.patient.form</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="gender"/>
+                    </group>
+                </sheet>
+                
+                <!-- Chatter Section -->
+                <div class="oe_chatter">
+                    <!-- Followers widget -->
+                    <field name="message_follower_ids" 
+                           widget="mail_followers"/>
+                    
+                    <!-- Activities (tasks, calls, meetings) -->
+                    <field name="activity_ids" 
+                           widget="mail_activity"/>
+                    
+                    <!-- Message thread -->
+                    <field name="message_ids" 
+                           widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    ```
+    
+    **What Each Widget Provides:**
+    - **`message_follower_ids`**: Follow/unfollow button, follower list
+    - **`activity_ids`**: Schedule activities, activity timeline
+    - **`message_ids`**: Message thread, internal notes, send messages
+
+---
 
 #### Module 5: Fields Deep Dive
+
 19. **Explain Many2one, One2many, and Many2many relationships.** *(Module 5)*
-    - Expected: Foreign key, reverse relation, junction table concepts
+    
+    ![Relational Fields Diagram](docs/interview-questions/mid/q19-relational-fields.png)
+    <!-- TODO: Screenshot showing patient form with doctor (Many2one), appointments (One2many), tags (Many2many) -->
+    
+    **Expected Answer:** Foreign key, reverse relation, junction table concepts
+    
+    **Many2one (Foreign Key - N:1):**
+    ```python
+    # patient.py - Many patients can have one doctor
+    class HospitalPatient(models.Model):
+        _name = "hospital.patient"
+        
+        # Many2one: Foreign key to res.partner
+        doctor_id = fields.Many2one(
+            'res.partner',                    # Related model
+            string="Doctor",
+            domain=[('is_doctor', '=', True)] # Filter only doctors
+        )
+    ```
+    
+    **One2many (Reverse Relation - 1:N):**
+    ```python
+    # patient.py - One patient can have many appointments
+    class HospitalPatient(models.Model):
+        _name = "hospital.patient"
+        
+        # One2many: Reverse of Many2one
+        appointment_ids = fields.One2many(
+            'hospital.appointment',  # Related model
+            'patient_id',           # Foreign key field in that model
+            string="Appointments"
+        )
+    
+    # appointment.py
+    class HospitalAppointment(models.Model):
+        _name = "hospital.appointment"
+        
+        # The Many2one that One2many references
+        patient_id = fields.Many2one('hospital.patient', string="Patient")
+    ```
+    
+    **Many2many (Junction Table - N:N):**
+    ```python
+    # patient.py - Many patients can have many tags
+    class HospitalPatient(models.Model):
+        _name = "hospital.patient"
+        
+        # Many2many: Creates junction table automatically
+        tag_ids = fields.Many2many(
+            'patient.tag',                    # Related model
+            'patient_tag_rel',                # Junction table name (optional)
+            'patient_id',                     # Column 1 in junction table
+            'tag_id',                         # Column 2 in junction table
+            string="Tags"
+        )
+    ```
+    
+    **Database Structure:**
+    - **Many2one**: `doctor_id` column in `hospital_patient` table
+    - **One2many**: No column (virtual field from reverse Many2one)
+    - **Many2many**: Junction table `patient_tag_rel` with two foreign keys
+    
+    **View Usage:**
+    ```xml
+    <!-- Many2one: Dropdown -->
+    <field name="doctor_id"/>
+    
+    <!-- One2many: Embedded list/tree -->
+    <field name="appointment_ids">
+        <tree>
+            <field name="name"/>
+            <field name="appointment_date"/>
+        </tree>
+    </field>
+    
+    <!-- Many2many: Tags widget -->
+    <field name="tag_ids" widget="many2many_tags"/>
+    ```
+
+---
 
 20. **What are computed fields? How do you create one?** *(Module 5)*
-    - Expected: Fields calculated from other fields, use `@api.depends` decorator
+    
+    ![Computed Age Field](docs/interview-questions/mid/q20-computed-field.png)
+    <!-- TODO: Screenshot showing age field auto-calculated from date_of_birth -->
+    
+    **Expected Answer:** Fields calculated from other fields, use `@api.depends` decorator
+    
+    **Code Example from `patient.py`:**
+    ```python
+    from odoo import api, fields, models
+    from datetime import date
+    
+    class HospitalPatient(models.Model):
+        _name = "hospital.patient"
+        
+        date_of_birth = fields.Date(string='Date of Birth')
+        
+        # Computed field with dependencies
+        age = fields.Integer(
+            string='Age',
+            compute='_compute_age',  # Method to compute value
+            store=True,              # Store in database (optional)
+            tracking=True
+        )
+        
+        @api.depends('date_of_birth')  # Recompute when date_of_birth changes
+        def _compute_age(self):
+            for rec in self:
+                if rec.date_of_birth:
+                    today = date.today()
+                    dob = rec.date_of_birth
+                    rec.age = today.year - dob.year - (
+                        (today.month, today.day) < (dob.month, dob.day)
+                    )
+                else:
+                    rec.age = 0
+    ```
+    
+    **Key Concepts:**
+    - **`compute='method_name'`**: Method that calculates the value
+    - **`@api.depends('field1', 'field2')`**: Triggers recomputation when dependencies change
+    - **`store=True`**: Stores value in database (improves performance but uses space)
+    - **`store=False`** (default): Computes on-the-fly (saves space but slower)
+    - **Loop through `self`**: Always iterate records in computed methods
+    
+    **Advanced Example with Related Field Dependency:**
+    ```python
+    @api.depends('appointment_ids.state')  # Depends on related field
+    def _compute_appointment_count(self):
+        for rec in self:
+            rec.appointment_count = len(rec.appointment_ids.filtered(
+                lambda x: x.state == 'confirmed'
+            ))
+    ```
+
+---
 
 21. **Explain the `@api.onchange` decorator.** *(Module 5)*
-    - Expected: Triggers when field changes in UI, updates other fields dynamically
+    
+    ![Onchange in Action](docs/interview-questions/mid/q21-onchange.png)
+    <!-- TODO: Screenshot showing gender changing and auto-updating related fields -->
+    
+    **Expected Answer:** Triggers when field changes in UI, updates other fields dynamically
+    
+    **Code Example from `appointment.py`:**
+    ```python
+    from odoo import api, fields, models
+    
+    class HospitalAppointment(models.Model):
+        _name = "hospital.appointment"
+        
+        patient_id = fields.Many2one('hospital.patient', string="Patient")
+        patient_age = fields.Integer(string="Patient Age", readonly=True)
+        patient_gender = fields.Selection([
+            ('male', 'Male'),
+            ('female', 'Female'),
+        ], string="Gender", readonly=True)
+        
+        @api.onchange('patient_id')  # Triggers when patient_id changes
+        def _onchange_patient_id(self):
+            if self.patient_id:
+                # Auto-fill patient details
+                self.patient_age = self.patient_id.age
+                self.patient_gender = self.patient_id.gender
+            else:
+                # Clear fields when patient is removed
+                self.patient_age = 0
+                self.patient_gender = False
+    ```
+    
+    **Key Differences: `@api.onchange` vs `@api.depends`**
+    
+    | Feature | `@api.onchange` | `@api.depends` (Computed) |
+    |---------|-----------------|---------------------------|
+    | **When** | User changes field in UI | Any time dependency changes |
+    | **Where** | Client-side only | Server-side |
+    | **Saves?** | No (until form saved) | Yes (if `store=True`) |
+    | **Use Case** | Auto-fill related fields | Calculate values |
+    | **Performance** | Instant in UI | May require DB query |
+    
+    **Advanced Onchange with Warning:**
+    ```python
+    @api.onchange('date_of_birth')
+    def _onchange_date_of_birth(self):
+        if self.date_of_birth and self.date_of_birth > fields.Date.today():
+            return {
+                'warning': {
+                    'title': 'Invalid Date',
+                    'message': 'Date of birth cannot be in the future!'
+                }
+            }
+    ```
+    
+    **Onchange with Domain Update:**
+    ```python
+    @api.onchange('doctor_id')
+    def _onchange_doctor_id(self):
+        # Update domain for available appointment slots
+        if self.doctor_id:
+            return {
+                'domain': {
+                    'appointment_slot_id': [('doctor_id', '=', self.doctor_id.id)]
+                }
+            }
+    ```
+
+---
 
 22. **What does `_rec_name` do in a model?** *(Module 5)*
-    - Expected: Specifies which field to use as display name in Many2one relations
+    
+    ![Rec Name in Many2one](docs/interview-questions/mid/q22-rec-name.png)
+    <!-- TODO: Screenshot showing patient reference (REF0001) displayed in Many2one dropdown -->
+    
+    **Expected Answer:** Specifies which field to use as display name in Many2one relations
+    
+    **Default Behavior (using `name` field):**
+    ```python
+    class HospitalPatient(models.Model):
+        _name = "hospital.patient"
+        
+        name = fields.Char(string='Patient Name')  # Default display field
+    ```
+    
+    **Custom `_rec_name` Implementation:**
+    ```python
+    class HospitalPatient(models.Model):
+        _name = "hospital.patient"
+        _rec_name = 'ref'  # Use 'ref' field instead of 'name'
+        
+        name = fields.Char(string='Patient Name')
+        ref = fields.Char(string='Reference')  # REF0001, REF0002, etc.
+    ```
+    
+    **Advanced: Custom Display with `name_get()`:**
+    ```python
+    class HospitalPatient(models.Model):
+        _name = "hospital.patient"
+        
+        name = fields.Char(string='Patient Name')
+        ref = fields.Char(string='Reference')
+        age = fields.Integer(string='Age')
+        
+        def name_get(self):
+            """Custom display format for Many2one fields"""
+            result = []
+            for rec in self:
+                # Format: "[REF0001] John Doe (45)"
+                display_name = f"[{rec.ref}] {rec.name}"
+                if rec.age:
+                    display_name += f" ({rec.age})"
+                result.append((rec.id, display_name))
+            return result
+    ```
+    
+    **When to Use:**
+    - `_rec_name`: Simple field swap (e.g., use code instead of name)
+    - `name_get()`: Complex formatting (combine multiple fields)
+
+---
 
 23. **What is a related field and when would you use it?** *(Module 5)*
-    - Expected: Shortcut to access related record's field, use `related=` parameter
+    
+    ![Related Field Example](docs/interview-questions/mid/q23-related-field.png)
+    <!-- TODO: Screenshot showing appointment form with patient_phone auto-filled from patient -->
+    
+    **Expected Answer:** Shortcut to access related record's field, use `related=` parameter
+    
+    **Code Example from `appointment.py`:**
+    ```python
+    class HospitalAppointment(models.Model):
+        _name = "hospital.appointment"
+        
+        patient_id = fields.Many2one('hospital.patient', string="Patient")
+        
+        # Related field: Shortcut to patient_id.phone
+        patient_phone = fields.Char(
+            string="Patient Phone",
+            related='patient_id.phone',  # Dot notation for related path
+            store=True,                  # Optional: store in DB
+            readonly=True                # Usually readonly
+        )
+        
+        # Related field from nested relation
+        patient_doctor_name = fields.Char(
+            string="Patient's Doctor",
+            related='patient_id.doctor_id.name',  # Multi-level relation
+            readonly=True
+        )
+    ```
+    
+    **Benefits:**
+    - **Convenience**: Access related fields without writing code
+    - **Searchable**: Can search/filter on related fields
+    - **Performance**: If `store=True`, avoids JOIN queries
+    
+    **Use Cases:**
+    ```python
+    # Get customer country from sale order
+    country_id = fields.Many2one(
+        'res.country',
+        related='partner_id.country_id',
+        string="Customer Country",
+        store=True
+    )
+    
+    # Get product category from order line
+    product_category_id = fields.Many2one(
+        'product.category',
+        related='product_id.categ_id',
+        string="Product Category",
+        readonly=True
+    )
+    ```
+    
+    **When to Use:**
+    - Display related data without custom computed field
+    - Make related fields searchable in views
+    - Simplify reports and filters
+    
+    **When NOT to Use:**
+    - Complex calculations (use computed fields instead)
+    - Writable fields (use computed with inverse function)
+
+---
 
 24. **How do you add an image field to a model?** *(Module 5)*
-    - Expected: Use `fields.Image` or `fields.Binary`, display with image widget
+    
+    ![Image Field in Form](docs/interview-questions/mid/q24-image-field.png)
+    <!-- TODO: Screenshot showing patient image in form view -->
+    
+    **Expected Answer:** Use `fields.Image` or `fields.Binary`, display with image widget
+    
+    **Code Example from `patient.py`:**
+    ```python
+    from odoo import fields, models
+    
+    class HospitalPatient(models.Model):
+        _name = "hospital.patient"
+        
+        # Image field (Odoo 13+)
+        image = fields.Image(string="Patient Image")
+        
+        # Alternative: Binary field (older Odoo versions)
+        # image = fields.Binary(string="Patient Image")
+    ```
+    
+    **Display in Form View (`patient_view.xml`):**
+    ```xml
+    <form>
+        <sheet>
+            <field name="image" widget="image" class="oe_avatar"/>
+            
+            <!-- Or with explicit size -->
+            <field name="image" 
+                   widget="image" 
+                   options="{'size': [200, 200]}"/>
+            
+            <group>
+                <field name="name"/>
+                <field name="age"/>
+            </group>
+        </sheet>
+    </form>
+    ```
+    
+    **Image Field Features (Odoo 13+):**
+    - Automatically creates resized variants (1920, 1024, 512, 256, 128)
+    - Optimized storage and performance
+    - Built-in image processing
+    
+    **Access Resized Variants:**
+    ```python
+    image_1920 = fields.Image("Image", max_width=1920, max_height=1920)
+    image_1024 = fields.Image("Image 1024", related="image_1920", max_width=1024, max_height=1024, store=True)
+    image_512 = fields.Image("Image 512", related="image_1920", max_width=512, max_height=512, store=True)
+    image_256 = fields.Image("Image 256", related="image_1920", max_width=256, max_height=256, store=True)
+    image_128 = fields.Image("Image 128", related="image_1920", max_width=128, max_height=128, store=True)
+    ```
+    
+    **Avatar Style (Top-Right Corner):**
+    ```xml
+    <sheet>
+        <field name="image" widget="image" class="oe_avatar"/>
+        <div class="oe_title">
+            <h1><field name="name"/></h1>
+        </div>
+    </sheet>
+    ```
+
+---
 
 #### Module 6: Widgets & Decorations
+
 25. **Explain widgets in Odoo. Name at least 5.** *(Module 6)*
-    - Expected: statusbar, priority, badge, image, many2many_tags, handle, color, etc.
+    
+    ![Common Widgets in Action](docs/interview-questions/mid/q25-widgets.png)
+    <!-- TODO: Screenshot showing multiple widgets: statusbar, priority stars, tags, image, badge -->
+    
+    **Expected Answer:** statusbar, priority, badge, image, many2many_tags, handle, color, etc.
+    
+    **Common Widgets with Examples:**
+    
+    **1. Statusbar Widget:**
+    ```xml
+    <field name="state" widget="statusbar" 
+           statusbar_visible="draft,confirmed,done"/>
+    ```
+    
+    **2. Priority Widget (Stars):**
+    ```xml
+    <field name="priority" widget="priority"/>
+    ```
+    ```python
+    priority = fields.Selection([
+        ('0', 'Normal'),
+        ('1', 'Low'),
+        ('2', 'High'),
+        ('3', 'Very High'),
+    ], string='Priority', default='0')
+    ```
+    
+    **3. Many2many Tags:**
+    ```xml
+    <field name="tag_ids" widget="many2many_tags" 
+           options="{'color_field': 'color'}"/>
+    ```
+    
+    **4. Badge Widget:**
+    ```xml
+    <field name="state" widget="badge" 
+           decoration-success="state == 'done'"
+           decoration-info="state == 'draft'"/>
+    ```
+    
+    **5. Image Widget:**
+    ```xml
+    <field name="image" widget="image" class="oe_avatar"/>
+    ```
+    
+    **6. Handle Widget (Drag/Drop Reordering):**
+    ```xml
+    <tree>
+        <field name="sequence" widget="handle"/>
+        <field name="name"/>
+    </tree>
+    ```
+    
+    **7. Color Picker:**
+    ```xml
+    <field name="color" widget="color"/>
+    ```
+    
+    **8. Boolean Toggle:**
+    ```xml
+    <field name="active" widget="boolean_toggle"/>
+    ```
+    
+    **9. Progressbar:**
+    ```xml
+    <field name="progress" widget="progressbar"/>
+    ```
+    ```python
+    progress = fields.Float(string='Progress', default=0.0)
+    ```
+    
+    **10. Monetary Widget:**
+    ```xml
+    <field name="total_amount" widget="monetary" 
+           options="{'currency_field': 'currency_id'}"/>
+    ```
+
+---
 
 26. **How do you add a button in a form view that triggers a Python method?** *(Module 6)*
-    - Expected: `<button>` tag with `type="object"` and `name="method_name"`
+    
+    ![Action Buttons in Form](docs/interview-questions/mid/q26-action-buttons.png)
+    <!-- TODO: Screenshot showing Confirm, Done, Cancel buttons in appointment form -->
+    
+    **Expected Answer:** `<button>` tag with `type="object"` and `name="method_name"`
+    
+    **Code Example from `appointment_view.xml`:**
+    ```xml
+    <form>
+        <header>
+            <!-- Object button: Calls Python method -->
+            <button name="action_confirm" 
+                    type="object" 
+                    string="Confirm" 
+                    class="btn-primary"
+                    states="draft"/>
+            
+            <!-- With confirmation dialog -->
+            <button name="action_done" 
+                    type="object" 
+                    string="Mark as Done" 
+                    class="btn-success"
+                    confirm="Are you sure you want to mark this as done?"
+                    states="confirmed"/>
+            
+            <!-- With icon -->
+            <button name="action_cancel" 
+                    type="object" 
+                    string="Cancel" 
+                    class="btn-danger"
+                    icon="fa-times"
+                    states="draft,confirmed"/>
+            
+            <field name="state" widget="statusbar"/>
+        </header>
+        <sheet>
+            <!-- Form content -->
+        </sheet>
+    </form>
+    ```
+    
+    **Python Methods in `appointment.py`:**
+    ```python
+    from odoo import api, fields, models
+    from odoo.exceptions import ValidationError
+    
+    class HospitalAppointment(models.Model):
+        _name = "hospital.appointment"
+        
+        state = fields.Selection([
+            ('draft', 'Draft'),
+            ('confirmed', 'Confirmed'),
+            ('done', 'Done'),
+            ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', required=True, tracking=True)
+        
+        def action_confirm(self):
+            """Button method: Confirm appointment"""
+            for rec in self:
+                if rec.state != 'draft':
+                    raise ValidationError('Only draft appointments can be confirmed!')
+                rec.state = 'confirmed'
+        
+        def action_done(self):
+            """Button method: Mark as done"""
+            self.write({'state': 'done'})
+        
+        def action_cancel(self):
+            """Button method: Cancel appointment"""
+            return {
+                'type': 'ir.actions.act_window',
+                'name': 'Cancel Appointment',
+                'res_model': 'cancel.appointment.wizard',
+                'view_mode': 'form',
+                'target': 'new',  # Open as popup
+                'context': {'default_appointment_id': self.id}
+            }
+    ```
+    
+    **Button Attributes:**
+    - **`type="object"`**: Calls Python method
+    - **`type="action"`**: Calls window action
+    - **`name`**: Method/action name
+    - **`string`**: Button label
+    - **`class`**: Bootstrap CSS class (btn-primary, btn-success, btn-danger)
+    - **`states`**: Show button only in specific states
+    - **`confirm`**: Confirmation dialog message
+    - **`icon`**: FontAwesome icon
+    - **`invisible`**: Hide button based on condition
+
+---
 
 27. **What is the purpose of `attrs` in view definitions?** *(Module 6)*
-    - Expected: Dynamic visibility/readonly/required based on conditions
+    
+    ![Dynamic Attrs Behavior](docs/interview-questions/mid/q27-attrs.png)
+    <!-- TODO: Screenshot showing field becoming readonly when state changes -->
+    
+    **Expected Answer:** Dynamic visibility/readonly/required based on conditions
+    
+    **Code Example from `appointment_view.xml`:**
+    ```xml
+    <form>
+        <sheet>
+            <group>
+                <!-- Invisible when state is draft -->
+                <field name="confirmation_date" 
+                       attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                
+                <!-- Readonly when state is not draft -->
+                <field name="patient_id" 
+                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                
+                <!-- Required when appointment type is 'consultation' -->
+                <field name="doctor_id" 
+                       attrs="{'required': [('appointment_type', '=', 'consultation')]}"/>
+                
+                <!-- Multiple conditions with OR -->
+                <field name="notes" 
+                       attrs="{
+                           'invisible': ['|', 
+                               ('state', '=', 'cancelled'), 
+                               ('state', '=', 'done')
+                           ]
+                       }"/>
+                
+                <!-- Multiple conditions with AND -->
+                <field name="follow_up_date" 
+                       attrs="{
+                           'required': [
+                               ('state', '=', 'done'),
+                               ('requires_followup', '=', True)
+                           ]
+                       }"/>
+                
+                <!-- Multiple attributes at once -->
+                <field name="cancellation_reason" 
+                       attrs="{
+                           'invisible': [('state', '!=', 'cancelled')],
+                           'required': [('state', '=', 'cancelled')]
+                       }"/>
+            </group>
+        </sheet>
+    </form>
+    ```
+    
+    **Domain Syntax in `attrs`:**
+    ```python
+    # Single condition
+    [('field_name', 'operator', 'value')]
+    
+    # AND conditions (default when multiple conditions)
+    [('field1', '=', 'value1'), ('field2', '>', 10)]
+    
+    # OR conditions (use '|' prefix)
+    ['|', ('field1', '=', 'value1'), ('field2', '=', 'value2')]
+    
+    # NOT condition (use '!' prefix)
+    ['!', ('field', '=', 'value')]
+    
+    # Complex: (field1 = 'A' AND field2 > 10) OR (field3 = 'B')
+    ['|', 
+        ('field1', '=', 'A'), ('field2', '>', 10),
+        ('field3', '=', 'B')
+    ]
+    ```
+    
+    **Common Use Cases:**
+    - Hide fields in certain states
+    - Make fields readonly after submission
+    - Conditional required fields
+    - Dynamic form layout based on user input
+
+---
 
 28. **How do you implement a statusbar widget?** *(Module 6)*
-    - Expected: Selection field with `statusbar` widget, define clickable states
+    
+    ![Statusbar Widget](docs/interview-questions/mid/q28-statusbar.png)
+    <!-- TODO: Screenshot showing statusbar with Draft, Confirmed, Done states -->
+    
+    **Expected Answer:** Selection field with `statusbar` widget, define clickable states
+    
+    **Complete Implementation:**
+    
+    **Step 1: Define State Field (`appointment.py`):**
+    ```python
+    from odoo import api, fields, models
+    
+    class HospitalAppointment(models.Model):
+        _name = "hospital.appointment"
+        
+        state = fields.Selection([
+            ('draft', 'Draft'),
+            ('confirmed', 'Confirmed'),
+            ('done', 'Done'),
+            ('cancelled', 'Cancelled'),
+        ], string='Status', default='draft', required=True, tracking=True)
+    ```
+    
+    **Step 2: Add Statusbar to View (`appointment_view.xml`):**
+    ```xml
+    <form>
+        <header>
+            <!-- Statusbar widget -->
+            <field name="state" 
+                   widget="statusbar" 
+                   statusbar_visible="draft,confirmed,done"
+                   options="{'clickable': '1'}"/>
+        </header>
+        <sheet>
+            <!-- Form content -->
+        </sheet>
+    </form>
+    ```
+    
+    **Step 3: Add State Transition Methods:**
+    ```python
+    def action_confirm(self):
+        """Transition from draft to confirmed"""
+        for rec in self:
+            if rec.state == 'draft':
+                rec.state = 'confirmed'
+    
+    def action_done(self):
+        """Transition from confirmed to done"""
+        for rec in self:
+            if rec.state == 'confirmed':
+                rec.state = 'done'
+    
+    def action_cancel(self):
+        """Cancel appointment from any state"""
+        self.write({'state': 'cancelled'})
+    
+    def action_draft(self):
+        """Reset to draft"""
+        self.write({'state': 'draft'})
+    ```
+    
+    **Statusbar Attributes:**
+    - **`statusbar_visible`**: Show only these states in bar (hides cancelled)
+    - **`options="{'clickable': '1'}"`**: Make states clickable (direct transition)
+    - **`options="{'clickable': '0'}"`**: Non-clickable (use buttons instead)
+    
+    **With Action Buttons:**
+    ```xml
+    <header>
+        <button name="action_confirm" string="Confirm" 
+                type="object" states="draft" class="btn-primary"/>
+        <button name="action_done" string="Done" 
+                type="object" states="confirmed" class="btn-success"/>
+        <button name="action_cancel" string="Cancel" 
+                type="object" states="draft,confirmed" class="btn-danger"/>
+        
+        <field name="state" widget="statusbar" 
+               statusbar_visible="draft,confirmed,done"/>
+    </header>
+    ```
+
+---
 
 29. **What are decorations in tree views?** *(Module 6)*
-    - Expected: Apply colors/styles based on conditions (decoration-success, decoration-danger)
+    
+    ![Tree View Decorations](docs/interview-questions/mid/q29-decorations.png)
+    <!-- TODO: Screenshot showing colored rows based on state (green=done, red=cancelled) -->
+    
+    **Expected Answer:** Apply colors/styles based on conditions (decoration-success, decoration-danger)
+    
+    **Code Example from `appointment_view.xml`:**
+    ```xml
+    <record id="view_hospital_appointment_tree" model="ir.ui.view">
+        <field name="name">hospital.appointment.tree</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state == 'done'"
+                  decoration-danger="state == 'cancelled'"
+                  decoration-info="state == 'draft'"
+                  decoration-warning="state == 'confirmed'"
+                  decoration-muted="active == False"
+                  decoration-bf="priority == '3'">
+                
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="appointment_date"/>
+                <field name="state" widget="badge"/>
+                <field name="priority" widget="priority"/>
+                <field name="active" invisible="1"/>  <!-- Hidden but used in decoration -->
+            </tree>
+        </field>
+    </record>
+    ```
+    
+    **Available Decorations:**
+    
+    | Decoration | Color | Use Case |
+    |------------|-------|----------|
+    | `decoration-success` | Green | Completed, Done, Success |
+    | `decoration-danger` | Red | Cancelled, Error, Critical |
+    | `decoration-warning` | Orange | Warning, Pending Action |
+    | `decoration-info` | Blue | Draft, Info, New |
+    | `decoration-muted` | Gray | Archived, Inactive |
+    | `decoration-primary` | Primary color | Important records |
+    | `decoration-bf` | Bold font | High priority |
+    | `decoration-it` | Italic | Special notation |
+    
+    **Complex Conditions:**
+    ```xml
+    <!-- Multiple conditions with AND -->
+    <tree decoration-danger="state == 'cancelled' and priority == '3'">
+    
+    <!-- OR condition -->
+    <tree decoration-warning="state == 'confirmed' or priority &gt;= '2'">
+    
+    <!-- Date comparisons -->
+    <tree decoration-danger="appointment_date &lt; current_date and state != 'done'">
+    
+    <!-- Combine multiple decorations -->
+    <tree decoration-success="state == 'done'"
+          decoration-danger="state == 'cancelled'"
+          decoration-bf="priority == '3'">
+    ```
+    
+    **Note:** In XML, use `&lt;` for `<` and `&gt;` for `>` in conditions.
+
+---
 
 30. **How do you add a confirmation dialog to a button?** *(Module 6)*
-    - Expected: Use `confirm="message"` attribute in button tag
+    
+    ![Confirmation Dialog](docs/interview-questions/mid/q30-confirm-dialog.png)
+    <!-- TODO: Screenshot showing "Are you sure you want to delete?" dialog -->
+    
+    **Expected Answer:** Use `confirm="message"` attribute in button tag
+    
+    **Simple Confirmation:**
+    ```xml
+    <button name="action_delete" 
+            type="object" 
+            string="Delete" 
+            class="btn-danger"
+            confirm="Are you sure you want to delete this record?"/>
+    ```
+    
+    **State-Specific Confirmation:**
+    ```xml
+    <header>
+        <button name="action_done" 
+                type="object" 
+                string="Mark as Done" 
+                class="btn-success"
+                states="confirmed"
+                confirm="Are you sure you want to mark this appointment as done?"/>
+        
+        <button name="action_cancel" 
+                type="object" 
+                string="Cancel Appointment" 
+                class="btn-danger"
+                states="draft,confirmed"
+                confirm="This will cancel the appointment. Do you want to proceed?"/>
+    </header>
+    ```
+    
+    **Advanced: Custom Confirmation with Wizard:**
+    ```python
+    # appointment.py
+    def action_cancel_with_reason(self):
+        """Open wizard for cancellation with reason"""
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Cancel Appointment',
+            'res_model': 'cancel.appointment.wizard',
+            'view_mode': 'form',
+            'target': 'new',  # Opens as popup dialog
+            'context': {
+                'default_appointment_id': self.id,
+                'default_date': self.appointment_date,
+            }
+        }
+    ```
+    
+    ```xml
+    <!-- No confirm attribute - opens custom wizard instead -->
+    <button name="action_cancel_with_reason" 
+            type="object" 
+            string="Cancel with Reason" 
+            class="btn-warning"
+            states="draft,confirmed"/>
+    ```
+    
+    **Wizard View (`cancel_appointment_view.xml`):**
+    ```xml
+    <record id="view_cancel_appointment_wizard_form" model="ir.ui.view">
+        <field name="name">cancel.appointment.wizard.form</field>
+        <field name="model">cancel.appointment.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="appointment_id" readonly="1"/>
+                    <field name="reason" required="1"/>
+                </group>
+                <footer>
+                    <button string="Confirm Cancellation" 
+                            type="object" 
+                            name="action_cancel" 
+                            class="btn-primary"/>
+                    <button string="Discard" 
+                            class="btn-secondary" 
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    ```
+
+---
 
 #### Module 7: Workflows & Wizards
 31. **How do you create a wizard (TransientModel)?** *(Module 7)*
