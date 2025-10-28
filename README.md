@@ -234,6 +234,8 @@ WEEK
 - [x ] Add SQL & Python constraints  
    - Sql Constraints In Odoo || Constrains In Odoo || Odoo 15 Field Validations,15:06,"9. Validation, Constraints & Domains",91
    - Python Constrains In Odoo || Constrains Decorator In Odoo || Model Constrains In Odoo,7:15,"9. Validation, Constraints & Domains",92
+- [x ] Copy function overrides  
+   - 84. Copy Function In Odoo ｜ Copy Attribute In Odoo ｜ Odoo Copy ORM Method
 - [ ] Configure stored/unstored computed fields  
    - Stored Compute Field In Odoo And Its Dependency || Re computation Of Stored Compute Field,12:53,17. Misc & Unsorted,95
    - Searchable Non Stored Compute Field In Odoo | How To Define Search Function For Field In Odoo,14:22,6. Fields: Basics & Relational,109
