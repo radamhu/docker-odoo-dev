@@ -231,7 +231,7 @@ WEEK
    - How To Raise Validation Error In Odoo || Odoo Validation || Validation Error In Odoo,6:25,"9. Validation, Constraints & Domains",89
 - [x ] Apply domains on fields  
    - Apply Domain For Fields In Odoo || Odoo Domain Concept || Odoo Field Domain || Odoo 15 Tutorials,13:35,"9. Validation, Constraints & Domains",90
-- [ ] Add SQL & Python constraints  
+- [x ] Add SQL & Python constraints  
    - Sql Constraints In Odoo || Constrains In Odoo || Odoo 15 Field Validations,15:06,"9. Validation, Constraints & Domains",91
    - Python Constrains In Odoo || Constrains Decorator In Odoo || Model Constrains In Odoo,7:15,"9. Validation, Constraints & Domains",92
 - [ ] Configure stored/unstored computed fields  
@@ -425,318 +425,544 @@ Website builder overhaul (new asset bundling, drag-drop, integration with backen
 
 ## 🎯 Odoo Developer Interview Questions
 
-### 🟢 Junior Level (0-1 years experience)
+### � Learning Path Mapping
 
-#### Basic Concepts
-1. **What is Odoo and what are its main modules?**
+This section maps interview questions to the learning modules above. Use this to prepare for interviews or assess candidates based on their practical knowledge.
+
+| Experience Level | Study These Modules | Interview Focus |
+|-----------------|---------------------|-----------------|
+| 🟢 **Junior** (0-1 years) | Modules 1-3 | Setup, basic models, views, security |
+| 🟡 **Mid-Level** (1-3 years) | Modules 4-8 | ORM, inheritance, widgets, workflows, wizards |
+| 🔴 **Expert** (3+ years) | Modules 9-11 | Advanced features, constraints, reporting, APIs, deployment |
+
+---
+
+### 🟢 Junior Level (0-1 years experience)
+*Foundation topics covered in Modules 1-3*
+
+#### Module 1: Setup & Module Structure
+1. **What is Odoo and what are its main modules?** *(Module 1)*
    - Expected: Understanding of ERP, mention of Sales, CRM, Inventory, Accounting
    
-2. **Explain the structure of an Odoo module.**
+2. **Explain the structure of an Odoo module.** *(Module 1)*
    - Expected: `__manifest__.py`, models, views, security folders, data files
 
-3. **What is the purpose of `__manifest__.py`?**
+3. **What is the purpose of `__manifest__.py`?** *(Module 1)*
    - Expected: Module metadata, dependencies, data files to load, version info
 
-4. **How do you create a new field in an Odoo model?**
-   - Expected: Use Fields class (Char, Integer, Many2one, etc.) in models
-
-5. **What are the basic field types in Odoo?**
-   - Expected: Char, Text, Integer, Float, Boolean, Date, Datetime, Selection
-
-6. **Explain the difference between `tree` and `form` views.**
-   - Expected: Tree = list view, Form = detailed single record view
-
-7. **What is `ir.model.access.csv` used for?**
-   - Expected: Access control list - defines which groups can read/write/create/delete records
-
-8. **How do you add a menu item in Odoo?**
+4. **How do you add a menu item in Odoo?** *(Module 1)*
    - Expected: Define `<menuitem>` in XML with action, parent, sequence
 
-9. **What is the difference between `active=True` and `active=False` in records?**
-   - Expected: Archiving mechanism - inactive records are hidden by default
+#### Module 2: Models & Security
+5. **How do you create a new field in an Odoo model?** *(Module 2)*
+   - Expected: Use Fields class (Char, Integer, Many2one, etc.) in models
 
-10. **How do you set a default value for a field?**
+6. **What are the basic field types in Odoo?** *(Module 2)*
+   - Expected: Char, Text, Integer, Float, Boolean, Date, Datetime, Selection
+
+7. **What is `ir.model.access.csv` used for?** *(Module 2)*
+   - Expected: Access control list - defines which groups can read/write/create/delete records
+
+8. **Write a simple model with name, description, and date fields.** *(Module 2)*
+   - Expected: Class inheriting `models.Model`, proper field definitions
+
+#### Module 3: Views & Basic Operations
+9. **Explain the difference between `tree` and `form` views.** *(Module 3)*
+   - Expected: Tree = list view, Form = detailed single record view
+
+10. **What is the difference between `active=True` and `active=False` in records?** *(Module 3)*
+    - Expected: Archiving mechanism - inactive records are hidden by default
+
+11. **How do you set a default value for a field?** *(Module 3)*
     - Expected: Use `default=` parameter or `default_get()` method
 
-#### Practical Questions
-11. **Write a simple model with name, description, and date fields.**
-12. **How would you make a field required?**
+12. **What is a domain in Odoo? Give examples.** *(Module 3)*
+    - Expected: Filter criteria `[('field', 'operator', 'value')]`
+
+13. **How would you make a field required?** *(Module 3)*
     - Expected: `required=True` parameter
-    
-13. **What does `_rec_name` do in a model?**
-    - Expected: Specifies which field to use as display name in Many2one relations
 
-14. **How do you add tracking to a field (chatter)?**
-    - Expected: Inherit `mail.thread`, add `tracking=True` to field
+14. **How do you add filters and group by options in search views?** *(Module 3)*
+    - Expected: `<filter>` tags in search view with domain or context for grouping
 
-15. **What is the purpose of `sequence.xml`?**
-    - Expected: Auto-generate unique sequential numbers for records
+15. **What does context do when opening a view?** *(Module 3)*
+    - Expected: Pass default values, hide/show fields, activate filters
 
 ---
 
 ### 🟡 Mid Level (1-3 years experience)
+*Advanced topics covered in Modules 4-8*
 
-#### ORM & Models
-16. **Explain the difference between `_name`, `_inherit`, and `_inherits`.**
-    - Expected: `_name` = new model, `_inherit` = extend existing, `_inherits` = delegation inheritance
+#### Module 4: Communication & Tracking
+16. **How do you add tracking to a field (chatter)?** *(Module 4)*
+    - Expected: Inherit `mail.thread`, add `tracking=True` to field
 
-17. **What are computed fields? How do you create one?**
+17. **What is the purpose of the search panel?** *(Module 4)*
+    - Expected: Quick filtering sidebar for categories/tags, improves UX
+
+18. **How do you enable chatter (mail thread) in a model?** *(Module 4)*
+    - Expected: Inherit `mail.thread`, `mail.activity.mixin`, add to view
+
+#### Module 5: Fields Deep Dive
+19. **Explain Many2one, One2many, and Many2many relationships.** *(Module 5)*
+    - Expected: Foreign key, reverse relation, junction table concepts
+
+20. **What are computed fields? How do you create one?** *(Module 5)*
     - Expected: Fields calculated from other fields, use `@api.depends` decorator
 
-18. **Explain the `@api.onchange` decorator.**
+21. **Explain the `@api.onchange` decorator.** *(Module 5)*
     - Expected: Triggers when field changes in UI, updates other fields dynamically
 
-19. **What ORM methods would you use to:**
+22. **What does `_rec_name` do in a model?** *(Module 5)*
+    - Expected: Specifies which field to use as display name in Many2one relations
+
+23. **What is a related field and when would you use it?** *(Module 5)*
+    - Expected: Shortcut to access related record's field, use `related=` parameter
+
+24. **How do you add an image field to a model?** *(Module 5)*
+    - Expected: Use `fields.Image` or `fields.Binary`, display with image widget
+
+#### Module 6: Widgets & Decorations
+25. **Explain widgets in Odoo. Name at least 5.** *(Module 6)*
+    - Expected: statusbar, priority, badge, image, many2many_tags, handle, color, etc.
+
+26. **How do you add a button in a form view that triggers a Python method?** *(Module 6)*
+    - Expected: `<button>` tag with `type="object"` and `name="method_name"`
+
+27. **What is the purpose of `attrs` in view definitions?** *(Module 6)*
+    - Expected: Dynamic visibility/readonly/required based on conditions
+
+28. **How do you implement a statusbar widget?** *(Module 6)*
+    - Expected: Selection field with `statusbar` widget, define clickable states
+
+29. **What are decorations in tree views?** *(Module 6)*
+    - Expected: Apply colors/styles based on conditions (decoration-success, decoration-danger)
+
+30. **How do you add a confirmation dialog to a button?** *(Module 6)*
+    - Expected: Use `confirm="message"` attribute in button tag
+
+#### Module 7: Workflows & Wizards
+31. **How do you create a wizard (TransientModel)?** *(Module 7)*
+    - Expected: Inherit `models.TransientModel`, create view, link with action
+
+32. **How do you control statusbar states with buttons?** *(Module 7)*
+    - Expected: Methods that update state field, buttons with `states` attribute
+
+33. **Explain One2many fields and when to use them.** *(Module 7)*
+    - Expected: Reverse of Many2one, display related records (e.g., order lines)
+
+34. **How do you load initial data into Odoo?** *(Module 7)*
+    - Expected: XML/CSV files in `data/` folder, referenced in manifest
+
+35. **What is `noupdate="1"` in data files?** *(Module 7)*
+    - Expected: Prevents Odoo from updating the record on module upgrade
+
+36. **How do you enable hotkeys for buttons?** *(Module 7)*
+    - Expected: Add `accesskey` attribute or use Odoo shortcuts
+
+#### Module 8: Inheritance & ORM
+37. **Explain the difference between `_name`, `_inherit`, and `_inherits`.** *(Module 8)*
+    - Expected: `_name` = new model, `_inherit` = extend existing, `_inherits` = delegation inheritance
+
+38. **How do you override the `create()` method? Give an example.** *(Module 8)*
+    - Expected: Call `super().create()`, add custom logic before/after
+
+39. **How do you override the `write()` method?** *(Module 8)*
+    - Expected: Call `super().write()`, add validation or side effects
+
+40. **What ORM methods would you use to:**
     - Create a record?
     - Search for records?
     - Update a record?
     - Delete a record?
-    - Expected: `create()`, `search()`, `write()`, `unlink()`
+    - Expected: `create()`, `search()`, `write()`, `unlink()` *(Module 8)*
 
-20. **How do you override the `create()` method? Give an example.**
-    - Expected: Call `super().create()`, add custom logic before/after
-
-21. **What is the difference between `search()` and `search_read()`?**
+41. **What is the difference between `search()` and `search_read()`?** *(Module 8)*
     - Expected: `search()` returns recordset, `search_read()` returns list of dicts
 
-22. **Explain Many2one, One2many, and Many2many relationships.**
-    - Expected: Foreign key, reverse relation, junction table concepts
+42. **How do you use sequences for auto-generated reference numbers?** *(Module 8)*
+    - Expected: Define sequence in XML, call `env['ir.sequence'].next_by_code()`
 
-23. **What is a domain in Odoo? Give examples.**
-    - Expected: Filter criteria `[('field', 'operator', 'value')]`
+43. **Explain `name_get()` and when to override it.** *(Module 8)*
+    - Expected: Customizes display name format, returns list of (id, name) tuples
 
-24. **How do you make a computed field searchable?**
-    - Expected: Add `search=` parameter with custom search method
-
-25. **What is `store=True` for computed fields?**
-    - Expected: Stores value in DB instead of computing on-the-fly
-
-#### Views & UI
-26. **How do you apply a domain to a Many2one field?**
-    - Expected: Use `domain=` attribute in field or view
-
-27. **Explain widgets in Odoo. Name at least 5.**
-    - Expected: statusbar, priority, badge, image, many2many_tags, handle, color, etc.
-
-28. **How do you add a button in a form view that triggers a Python method?**
-    - Expected: `<button>` tag with `type="object"` and `name="method_name"`
-
-29. **What is the purpose of `attrs` in view definitions?**
-    - Expected: Dynamic visibility/readonly/required based on conditions
-
-30. **How do you create a wizard (TransientModel)?**
-    - Expected: Inherit `models.TransientModel`, create view, link with action
-
-#### Security & Data
-31. **Explain the difference between access rights and record rules.**
+#### Security & Advanced Features
+44. **Explain the difference between access rights and record rules.** *(Modules 2, 7)*
     - Expected: Access = model-level CRUD, Record rules = row-level filters
 
-32. **How do you load initial data into Odoo?**
-    - Expected: XML/CSV files in `data/` folder, referenced in manifest
-
-33. **What is `noupdate="1"` in data files?**
-    - Expected: Prevents Odoo from updating the record on module upgrade
-
-34. **How do you handle translations in Odoo?**
-    - Expected: `_()` function for strings, PO files, translate=True for fields
-
-35. **What is the purpose of `groups_id` in field definitions?**
+45. **What is the purpose of `groups_id` in field definitions?** *(Module 7)*
     - Expected: Field-level security - show only to specific user groups
 
-#### Practical Scenarios
-36. **Create a computed field that calculates total from line items.**
-37. **Write a domain that shows only active records created this year.**
-38. **How would you prevent deletion of records in certain states?**
-    - Expected: Override `unlink()` method, raise ValidationError
+46. **How do you handle translations in Odoo?** *(Modules 7-8)*
+    - Expected: `_()` function for strings, PO files, translate=True for fields
 
-39. **Implement a Python constraint that ensures email is unique.**
-40. **Create an onchange that auto-fills city based on zip code.**
+#### Practical Scenarios
+47. **Create a computed field that calculates total from line items.** *(Module 5)*
+48. **Write a domain that shows only active records created this year.** *(Module 3)*
+49. **How would you prevent deletion of records in certain states?** *(Module 8)*
+    - Expected: Override `unlink()` method, raise ValidationError
+50. **Create an onchange that auto-fills city based on zip code.** *(Module 5)*
 
 ---
 
 ### 🔴 Expert Level (3+ years experience)
+*Advanced topics covered in Modules 9-11*
 
-#### Advanced ORM & Architecture
-41. **Explain the Odoo environment (`self.env`). What can you access through it?**
+#### Module 9: Advanced Features & Constraints
+51. **How do you raise validation errors in Odoo?** *(Module 9)*
+    - Expected: Use `raise ValidationError(_("Message"))` from `odoo.exceptions`
+
+52. **What are SQL constraints vs Python constraints?** *(Module 9)*
+    - Expected: SQL = DB-level (UNIQUE, CHECK), Python = `@api.constrains` decorator
+
+53. **Implement a Python constraint that ensures email is unique.** *(Module 9)*
+    - Expected: `@api.constrains` decorator, check uniqueness, raise error
+
+54. **How do you apply a domain to a Many2one field dynamically?** *(Module 9)*
+    - Expected: Use `domain=` attribute in field or view with dynamic expressions
+
+55. **What is `store=True` for computed fields?** *(Module 9)*
+    - Expected: Stores value in DB, improves performance, triggers on dependencies
+
+56. **How do you make a computed field searchable?** *(Module 9)*
+    - Expected: Add `search=` parameter with custom search method
+
+57. **Explain inverse functions for computed fields.** *(Module 9)*
+    - Expected: Makes computed field editable, `inverse=` method to update source fields
+
+58. **What are ondelete policies (CASCADE vs RESTRICT)?** *(Module 9)*
+    - Expected: CASCADE deletes related records, RESTRICT prevents deletion
+
+59. **How do you make fields conditionally invisible/readonly/required?** *(Module 9)*
+    - Expected: Use `attrs` in view or `states`, `invisible`, `readonly`, `required` attributes
+
+60. **What is the `@api.ondelete` decorator?** *(Module 9)*
+    - Expected: Execute custom code when deleting records, use `at_uninstall` flag
+
+#### Advanced ORM & Environment
+61. **Explain the Odoo environment (`self.env`). What can you access through it?** *(Module 9)*
     - Expected: `env.user`, `env.company`, `env.cr` (cursor), `env.context`, `env.ref()`
 
-42. **What is the difference between `self.env.cr.execute()` and ORM methods?**
+62. **What is the difference between `self.env.cr.execute()` and ORM methods?** *(Module 9)*
     - Expected: Raw SQL vs ORM (security, caching, access rights differences)
 
-43. **When and why would you use `sudo()`?**
+63. **When and why would you use `sudo()`?** *(Module 9)*
     - Expected: Bypass access rights, admin-level operations, security implications
 
-44. **Explain `with_context()` and `with_company()`.**
+64. **Explain `with_context()` and `with_company()`.** *(Module 9)*
     - Expected: Temporary context modification, multi-company scenarios
 
-45. **How does Odoo handle multi-company architecture?**
+65. **How does Odoo handle multi-company architecture?** *(Module 9)*
     - Expected: `company_id` field, record rules, security models
 
-46. **What are the performance implications of stored vs non-stored computed fields?**
-    - Expected: DB space vs computation time, cache, dependencies
+66. **What are the performance implications of stored vs non-stored computed fields?** *(Module 9)*
+    - Expected: DB space vs computation time, cache, dependencies, recomputation triggers
 
-47. **Explain the `@api.model` decorator.**
+67. **Explain the `@api.model` decorator.** *(Module 8)*
     - Expected: Class-level method, no recordset (similar to classmethod)
 
-48. **How do you handle circular dependencies in computed fields?**
+68. **How do you handle circular dependencies in computed fields?** *(Module 9)*
     - Expected: Careful `@api.depends` design, inverse functions, avoid recursion
 
-49. **What is the purpose of `_sql_constraints`?**
+69. **What is the purpose of `_sql_constraints`?** *(Module 9)*
     - Expected: Database-level constraints (UNIQUE, CHECK), faster than Python
 
-50. **Explain method resolution order (MRO) in Odoo inheritance.**
+70. **Explain method resolution order (MRO) in Odoo inheritance.** *(Module 8)*
     - Expected: Multiple inheritance chain, how Odoo resolves conflicts
 
-#### Advanced Views & Frontend
-51. **How do you create a custom widget in Odoo?**
-    - Expected: JavaScript widget registration, template, CSS (mention OWL for 16+)
-
-52. **Explain QWeb and its use cases.**
-    - Expected: Templating engine for reports, website, views
-
-53. **How do you pass data from Python to JavaScript?**
-    - Expected: Context, widget props, JSON endpoints
-
-54. **What is the difference between OWL v1 and v2?**
-    - Expected: Component lifecycle, reactivity, hooks (Odoo 16 vs 17+)
-
-55. **How do you debug JavaScript issues in Odoo?**
-    - Expected: Browser console, asset debug mode, source maps
-
-56. **Explain how asset bundles work in Odoo.**
-    - Expected: Asset XML declarations, JS/CSS compilation, lazy loading
-
-#### Integration & APIs
-57. **How do you create a custom REST API endpoint in Odoo?**
-    - Expected: Controller class, `@http.route`, JSON responses, authentication
-
-58. **Explain XMLRPC vs JSONRPC in Odoo.**
-    - Expected: External API protocols, use cases, authentication methods
-
-59. **How would you integrate Odoo with an external service (e.g., payment gateway)?**
-    - Expected: API calls, webhooks, scheduled actions, error handling
-
-60. **What are the security considerations for external API integration?**
-    - Expected: API keys, CORS, rate limiting, input validation
-
-#### Reporting & Advanced Features
-61. **How do you create a custom PDF report with dynamic content?**
+#### Module 10: Reporting & Integrations
+71. **How do you create a custom PDF report with dynamic content?** *(Module 10)*
     - Expected: QWeb template, report action, Python report class
 
-62. **Explain how to add a pivot/graph view to a model.**
-    - Expected: `<graph>` and `<pivot>` view types, measure fields, grouping
+72. **Explain QWeb and its use cases.** *(Module 10)*
+    - Expected: Templating engine for reports, website, views
 
-63. **How do you generate Excel reports from Odoo?**
+73. **How do you generate Excel reports from Odoo?** *(Module 10)*
     - Expected: `xlsxwriter` library, AbstractModel inheritance, download action
 
-64. **What is the purpose of `search_default_` in context?**
-    - Expected: Auto-activate search filters when view opens
+74. **How do you add barcodes and QR codes to PDF reports?** *(Module 10)*
+    - Expected: QWeb expressions with barcode/QR code helpers
 
-#### Performance & Optimization
-65. **How do you optimize a slow Odoo query?**
-    - Expected: Indexes, reduce computed fields, prefetch, `read_group()`, SQL explain
+75. **How do you create a custom REST API endpoint in Odoo?** *(Module 10)*
+    - Expected: Controller class, `@http.route`, JSON responses, authentication
 
-66. **Explain prefetching in Odoo ORM.**
-    - Expected: Batch loading of related records to reduce queries
+76. **Explain XMLRPC vs JSONRPC in Odoo.** *(Module 10)*
+    - Expected: External API protocols, use cases, authentication methods
 
-67. **What are workers in Odoo? When do you need them?**
-    - Expected: Multiprocessing, concurrent requests, long-running tasks
+77. **How would you integrate Odoo with an external service (e.g., payment gateway)?** *(Module 10)*
+    - Expected: API calls, webhooks, scheduled actions, error handling
 
-68. **How do you profile Odoo performance issues?**
-    - Expected: `--log-level=debug`, Python profilers, query logs, Odoo profiler
+78. **What are the security considerations for external API integration?** *(Module 10)*
+    - Expected: API keys, CORS, rate limiting, input validation
 
-69. **What is `@api.depends_context` and when would you use it?**
-    - Expected: Computed field depends on context values (company, lang, etc.)
+79. **How do you use Postman to test Odoo APIs?** *(Module 10)*
+    - Expected: Authentication setup, request configuration, code generation
 
-#### Deployment & DevOps
-70. **Explain the Odoo module upgrade process.**
+#### Module 11: Deployment & DevOps
+80. **Explain the Odoo module upgrade process.** *(Module 11)*
     - Expected: `-u module_name`, migration scripts, version in manifest
 
-71. **How do you handle database migrations in Odoo?**
+81. **How do you handle database migrations in Odoo?** *(Module 11)*
     - Expected: `pre.py` and `post.py` migration scripts in `migrations/` folder
 
-72. **What are the best practices for Odoo module development?**
-    - Expected: Small commits, testing, linting, documentation, version control
-
-73. **How do you debug Odoo in a Docker container?**
+82. **How do you debug Odoo in a Docker container?** *(Module 11)*
     - Expected: Remote debugging, pydevd-odoo, port mapping, attach to process
 
-74. **Explain the purpose of `--workers`, `--max-cron-threads`, and `--limit-time-cpu`.**
+83. **Explain the purpose of `--workers`, `--max-cron-threads`, and `--limit-time-cpu`.** *(Module 11)*
     - Expected: Concurrency control, resource limits, production configuration
 
-#### Real-World Scenarios
-75. **Design a multi-step approval workflow for purchase orders.**
-    - Expected: State field, buttons, groups, email notifications
+84. **What are workers in Odoo? When do you need them?** *(Module 11)*
+    - Expected: Multiprocessing, concurrent requests, long-running tasks
 
-76. **How would you implement a custom pricing rule engine?**
+85. **How do you run Odoo from command line?** *(Module 11)*
+    - Expected: `odoo -c config.conf -d database -u module`
+
+#### Advanced Views & Frontend
+86. **How do you create a custom widget in Odoo?** *(Module 6, advanced)*
+    - Expected: JavaScript widget registration, template, CSS (mention OWL for 16+)
+
+87. **How do you pass data from Python to JavaScript?** *(Module 6)*
+    - Expected: Context, widget props, JSON endpoints
+
+88. **What is the difference between OWL v1 and v2?** *(Odoo 16-17)*
+    - Expected: Component lifecycle, reactivity, hooks (Odoo 16 vs 17+)
+
+89. **How do you debug JavaScript issues in Odoo?** *(Module 11)*
+    - Expected: Browser console, asset debug mode, source maps
+
+90. **Explain how asset bundles work in Odoo.** *(Module 10)*
+    - Expected: Asset XML declarations, JS/CSS compilation, lazy loading
+
+#### Performance & Optimization
+91. **How do you optimize a slow Odoo query?** *(Module 9)*
+    - Expected: Indexes, reduce computed fields, prefetch, `read_group()`, SQL explain
+
+92. **Explain prefetching in Odoo ORM.** *(Module 8)*
+    - Expected: Batch loading of related records to reduce queries
+
+93. **How do you profile Odoo performance issues?** *(Module 11)*
+    - Expected: `--log-level=debug`, Python profilers, query logs, Odoo profiler
+
+94. **What is `@api.depends_context` and when would you use it?** *(Module 9)*
+    - Expected: Computed field depends on context values (company, lang, etc.)
+
+95. **Explain how to add a pivot/graph view to a model.** *(Module 10)*
+    - Expected: `<graph>` and `<pivot>` view types, measure fields, grouping
+
+96. **What is the purpose of `search_default_` in context?** *(Module 3)*
+    - Expected: Auto-activate search filters when view opens
+
+#### Real-World Expert Scenarios
+97. **Design a multi-step approval workflow for purchase orders.** *(Modules 7, 8, 9)*
+    - Expected: State field, buttons, groups, email notifications, constraints
+
+98. **How would you implement a custom pricing rule engine?** *(Modules 5, 8)*
     - Expected: Pricelist inheritance, computed fields, onchange logic
 
-77. **Design a system to sync Odoo inventory with an external warehouse.**
+99. **Design a system to sync Odoo inventory with an external warehouse.** *(Modules 10, 11)*
     - Expected: Scheduled actions, API integration, error handling, logging
 
-78. **How do you handle large data imports (100k+ records)?**
-    - Expected: Batch processing, `load()` method, disable tracking, SQL bulk insert
+100. **How do you handle large data imports (100k+ records)?** *(Modules 7, 11)*
+     - Expected: Batch processing, `load()` method, disable tracking, SQL bulk insert
 
-79. **Implement a custom field that behaves differently for different user groups.**
-    - Expected: Computed fields with `env.user` checks, attrs in views
+101. **Implement a custom field that behaves differently for different user groups.** *(Modules 2, 5, 9)*
+     - Expected: Computed fields with `env.user` checks, attrs in views
 
-80. **Design a reporting dashboard with real-time data.**
-    - Expected: Custom controllers, JS widgets, websockets (advanced), caching
+102. **Design a reporting dashboard with real-time data.** *(Modules 10, 11)*
+     - Expected: Custom controllers, JS widgets, websockets (advanced), caching
+
+103. **What are the best practices for Odoo module development?** *(All Modules)*
+     - Expected: Small commits, testing, linting, documentation, version control, proper inheritance
 
 ---
 
 ### 💡 Behavioral & Situational Questions (All Levels)
 
-81. **Describe a challenging Odoo customization you implemented.**
-82. **How do you approach debugging a production issue in Odoo?**
-83. **What's your experience with Odoo upgrades (e.g., 13 → 15 → 17)?**
-84. **How do you stay updated with Odoo developments?**
-85. **Explain a situation where you had to optimize slow Odoo performance.**
-86. **How do you handle conflicting requirements from business users?**
-87. **What's your testing strategy for Odoo modules?**
-88. **Describe your experience with Odoo community vs Enterprise.**
-89. **How do you document your Odoo customizations?**
-90. **What would you do if a module upgrade breaks existing functionality?**
+104. **Describe a challenging Odoo customization you implemented.** *(All Modules)*
+105. **How do you approach debugging a production issue in Odoo?** *(Module 11)*
+106. **What's your experience with Odoo upgrades (e.g., 13 → 15 → 17)?** *(Module 11)*
+107. **How do you stay updated with Odoo developments?** *(Professional Development)*
+108. **Explain a situation where you had to optimize slow Odoo performance.** *(Modules 9, 11)*
+109. **How do you handle conflicting requirements from business users?** *(Project Management)*
+110. **What's your testing strategy for Odoo modules?** *(Module 11)*
+111. **Describe your experience with Odoo community vs Enterprise.** *(General Knowledge)*
+112. **How do you document your Odoo customizations?** *(Best Practices)*
+113. **What would you do if a module upgrade breaks existing functionality?** *(Module 11)*
 
 ---
 
-### 📝 Coding Challenges
+### 📝 Coding Challenges by Experience Level
 
-#### Junior
-- Create a simple library management module (books, authors, members)
-- Add a wizard to cancel appointments with a reason
+#### 🟢 Junior Level Challenges
+**Challenge 1: Library Management Module** *(Modules 1-3)*
+- Create models: Book (title, author, ISBN, published_date), Member (name, email, phone)
+- Implement basic views (tree, form, search)
+- Add proper access rights
+- Use domains to filter available books
 
-#### Mid
-- Implement a discount calculation system with multiple rules
-- Create a custom report showing monthly sales by product category
-- Build a workflow with 3 states and proper transitions
-
-#### Expert
-- Design a multi-tenant Odoo system with data isolation
-- Implement a custom inventory reservation system
-- Create a real-time notification system for stock alerts
-- Build a custom dashboard with charts and KPIs
+**Challenge 2: Appointment Cancellation Wizard** *(Module 7)*
+- Create a wizard to cancel appointments
+- Add a reason field (required)
+- Update appointment state on confirmation
+- Show appropriate success message
 
 ---
 
-### 🎓 Assessment Tips
+#### 🟡 Mid-Level Challenges
+**Challenge 3: Discount Calculation System** *(Modules 5, 8)*
+- Implement multiple discount rules (percentage, fixed amount, tiered)
+- Use computed fields for automatic calculation
+- Apply onchange methods for dynamic updates
+- Override create/write to validate discount limits
 
-**For Junior candidates:**
-- Focus on understanding basics: models, views, fields
-- Can they navigate Odoo UI and create simple modules?
-- Do they understand the MVC pattern in Odoo context?
+**Challenge 4: Sales Report by Category** *(Modules 7, 10)*
+- Create a custom report showing monthly sales grouped by product category
+- Include filters for date range and salesperson
+- Use QWeb template for PDF generation
+- Add graph/pivot views for data visualization
 
-**For Mid-level candidates:**
-- Test ORM knowledge deeply
+**Challenge 5: Three-State Workflow** *(Modules 7, 8)*
+- Implement a workflow: Draft → Confirmed → Done
+- Add buttons with proper state transitions
+- Implement access controls (only managers can confirm)
+- Add field tracking for audit trail
+
+---
+
+#### 🔴 Expert Level Challenges
+**Challenge 6: Multi-Tenant System** *(Modules 9, 11)*
+- Design data isolation using record rules
+- Implement company-specific configurations
+- Handle shared vs company-specific data
+- Optimize queries with proper indexing
+
+**Challenge 7: Inventory Reservation System** *(Modules 8, 9, 10)*
+- Create custom reservation logic with expiration
+- Implement SQL constraints for stock availability
+- Add scheduled actions for auto-release
+- Build API endpoints for external warehouse integration
+
+**Challenge 8: Real-Time Stock Alert System** *(Modules 9, 10, 11)*
+- Monitor stock levels with computed fields
+- Send notifications when below threshold
+- Create dashboard with live updates
+- Implement webhook integration for external systems
+
+**Challenge 9: Custom Dashboard with KPIs** *(Modules 6, 10)*
+- Build interactive dashboard using JS widgets
+- Include charts (sales trends, top products, revenue)
+- Add filters and date range selectors
+- Optimize for performance with caching
+
+---
+
+### 🎓 Assessment & Interview Tips
+
+#### 🟢 For Junior Candidates (Modules 1-3):
+**Focus Areas:**
+- Understanding of Odoo basics: models, views, fields
+- Ability to navigate Odoo UI and studio
+- Can they create simple modules independently?
+- Do they understand MVC pattern in Odoo context?
+- Basic debugging skills
+
+**Red Flags:**
+- Cannot explain `__manifest__.py` structure
+- Doesn't understand difference between tree and form views
+- No knowledge of access rights (`ir.model.access.csv`)
+- Cannot write basic domains
+
+**Green Flags:**
+- Has completed om_hospital module or similar tutorial
+- Can explain field types and when to use each
+- Understands basic security (groups, access rights)
+- Knows how to use Odoo developer mode
+
+---
+
+#### 🟡 For Mid-Level Candidates (Modules 4-8):
+**Focus Areas:**
+- Deep ORM knowledge (inheritance, computed fields, relationships)
 - Can they solve real business logic problems?
-- Do they understand performance implications?
-- Can they work independently on feature development?
+- Understanding of performance implications
+- Independent feature development capability
+- Wizard and workflow implementation
 
-**For Expert candidates:**
+**Red Flags:**
+- Cannot explain `_inherit` vs `_inherits`
+- Doesn't understand when to use `@api.depends` vs `@api.onchange`
+- No experience with method overriding (create, write, unlink)
+- Cannot implement One2many/Many2many correctly
+
+**Green Flags:**
+- Has built complete modules with workflows
+- Can override ORM methods properly
+- Understands computed field dependencies
+- Experience with transient models (wizards)
+- Knows how to use sequences and data files
+
+---
+
+#### 🔴 For Expert Candidates (Modules 9-11):
+**Focus Areas:**
 - Architecture and design patterns
 - Performance optimization experience
 - Integration and API expertise
 - Can they lead module design and mentor others?
 - Production debugging and troubleshooting skills
+- Understanding of deployment and DevOps
+
+**Red Flags:**
+- Cannot explain `self.env` and its components
+- No experience with constraints or validations
+- Doesn't understand security implications of `sudo()`
+- Cannot optimize slow queries
+- No API integration experience
+
+**Green Flags:**
+- Has deployed Odoo to production environments
+- Experience with module upgrades and migrations
+- Can debug complex issues using logs and profilers
+- Built custom APIs and external integrations
+- Understands multi-company architecture
+- Has contributed to Odoo community or built reusable modules
+
+---
+
+### 📊 Quick Reference: Module to Skills Mapping
+
+| Module | Key Skills | Interview Weight |
+|--------|-----------|------------------|
+| **Module 1** | Setup, structure, menus | Junior 30% |
+| **Module 2** | Models, security basics | Junior 30% |
+| **Module 3** | Views, domains, filters | Junior 40% |
+| **Module 4** | Tracking, chatter | Mid 10% |
+| **Module 5** | Fields, computed, onchange | Mid 25% |
+| **Module 6** | Widgets, UI/UX | Mid 15% |
+| **Module 7** | Workflows, wizards, data | Mid 25% |
+| **Module 8** | Inheritance, ORM methods | Mid 25% |
+| **Module 9** | Constraints, environment, advanced | Expert 35% |
+| **Module 10** | Reporting, APIs, integration | Expert 35% |
+| **Module 11** | Deployment, debugging, optimization | Expert 30% |
+
+---
+
+### 🎯 Interview Process Recommendations
+
+**For Junior Positions:**
+1. 15 min: Basic concepts (10-15 questions from Modules 1-3)
+2. 30 min: Live coding - Create simple model with view
+3. 15 min: Q&A and culture fit
+
+**For Mid-Level Positions:**
+1. 20 min: ORM and workflow questions (15-20 questions from Modules 4-8)
+2. 45 min: Live coding - Implement wizard or computed field challenge
+3. 15 min: Behavioral questions and team fit
+
+**For Expert Positions:**
+1. 30 min: Architecture and advanced topics (15-20 questions from Modules 9-11)
+2. 60 min: System design - Real-world scenario (e.g., design approval workflow)
+3. 30 min: Code review of their previous work or whiteboard API integration
+4. 20 min: Leadership and mentoring discussion
 
 ---
